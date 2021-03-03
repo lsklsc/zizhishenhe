@@ -1,0 +1,66 @@
+export const menu = [{
+    name: "工作台",
+    icon: "el-icon-s-platform",
+    path: "/gongzuotai/gongzuo",
+    index: "gongzuo",
+    hasChild: false,
+  },
+  {
+    name: "车辆管理",
+    icon: "el-icon-truck",
+    path: "/cheliang/che",
+    index: "che",
+    hasChild: false,
+  },
+  {
+    name: "人员管理",
+    icon: "el-icon-s-custom",
+    path: "/renyuan/renyuan",
+    index: "renyuan",
+    hasChild: false,
+  },
+  {
+    name: "资质管理",
+    icon: "el-icon-s-management",
+    path: "/zizhi/zizhi",
+    index: "zizhi",
+    hasChild: false,
+  },
+  {
+    name: "合同管理",
+    icon: "el-icon-document-copy",
+    path: "/hetong/hetong",
+    index: "hetong",
+    hasChild: false,
+  },
+  {
+    name: "电子合同",
+    icon: "el-icon-printer",
+    path: "/dianzi/dianzi",
+    index: "dianzi",
+    hasChild: false,
+  },
+  {
+    name: "操作日志",
+    icon: "el-icon-s-open",
+    path: "/caozuo/caozuo",
+    index: "caozuo",
+    hasChild: false,
+  },
+  {
+    name: "账户管理",
+    icon: "el-icon-wallet",
+    hasChild: true,
+    children: [{
+        name: "角色列表",
+        path: "/zhanghu/juese",
+        index: "juese",
+      },
+      {
+        name: "账号管理",
+        path: "/zhanghu/zhanghu",
+        index: "zhanghu",
+      },
+    ]
+  },
+];
