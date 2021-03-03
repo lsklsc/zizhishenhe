@@ -221,12 +221,12 @@ export default {
           this.$message.info("已取消注销");
         });
     },
-    //营业执照上传
+    //营业执照上传 
     uploadSuccess(arr) {
       this.ruleForm.company_picture = arr.join(",");
     },
     //头像上传
-    uploadSuccess1(arr) {
+    uploadSuccess1(arr) { 
       this.userObj.picture = arr.join(",");
     },
     //头像修改
