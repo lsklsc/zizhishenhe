@@ -13,7 +13,6 @@
               :rules="rules"
               ref="ruleForm"
               label-width="160px"
-              size="mini"
             >
               <el-form-item label="公司名称：" prop="name">
                 <el-input disabled v-model="ruleForm.name"></el-input>
@@ -250,7 +249,7 @@ export default {
           });
         })
         .catch(() => {
-          this.$message.info("已取消注销");
+          this.$message.info("已取消修改");
         });
     },
     goBack() {
