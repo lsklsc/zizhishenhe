@@ -2,10 +2,10 @@
   <div class="upload">
     <el-upload
       multiple
-      :action="action"
+      action="http://filemanager.ztbory.com/v1/file/fileupload/"
       list-type="picture-card"
       :data="data"
-      :headers="headerObj"
+      :header="headerObj"
       name="files"
       :beforeUpload="beforeAvatarUpload"
       :on-preview="handlePictureCardPreview"
@@ -25,7 +25,6 @@
   </div>
 </template>
 <script>
-import { imgUrl } from "@/common/common";
 let token = localStorage.getItem("token"); // 获取token
 export default {
   props: {
@@ -44,9 +43,8 @@ export default {
   },
   data() {
     return {
-      action: "",
       data: {
-        mkdir: ""
+        mkdir: "qualification" //测试用 qianlei
       },
       imageArr: [],
       urlString: "",
@@ -54,7 +52,7 @@ export default {
       dialogImageUrl: "",
       headerObj: {
         Authorization: `Token ${token}`,
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "multipart/form-data"
       }
     };
   },
@@ -78,12 +76,7 @@ export default {
       immediate: true
     }
   },
-  mounted() {
-    if (imgUrl == "https://api.ztbory.com/dev") {
-      this.data.mkdir = "qianlei";
-    }
-    this.action = imgUrl + "/upload/images/";
-  },
+  mounted() {},
   methods: {
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
