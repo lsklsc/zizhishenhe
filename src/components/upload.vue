@@ -1,10 +1,11 @@
 <template>
   <div class="upload">
     <el-upload
+      multiple
       :action="action"
       list-type="picture-card"
       :data="data"
-      :header="header"
+      :headers="headerObj"
       name="files"
       :beforeUpload="beforeAvatarUpload"
       :on-preview="handlePictureCardPreview"
@@ -25,6 +26,7 @@
 </template>
 <script>
 import { imgUrl } from "@/common/common";
+let token = localStorage.getItem("token"); // 获取token
 export default {
   props: {
     imageUrl: {
@@ -42,14 +44,18 @@ export default {
   },
   data() {
     return {
-      imageArr: [],
+      action: "",
       data: {
         mkdir: ""
       },
+      imageArr: [],
       urlString: "",
       dialogVisible: false,
       dialogImageUrl: "",
-      action: ""
+      headerObj: {
+        Authorization: `Token ${token}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
     };
   },
   watch: {
@@ -77,11 +83,9 @@ export default {
       this.data.mkdir = "qianlei";
     }
     this.action = imgUrl + "/upload/images/";
-    console.log(this.action);
   },
   methods: {
     handlePictureCardPreview(file) {
-      console.log(file);
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
@@ -89,7 +93,6 @@ export default {
       this.$refs["upload"].clearFiles();
     },
     onSuccess(response, file, fileList) {
-      console.log(fileList);
       let urlArr = [];
       fileList.forEach(item => {
         if (item.response) {
@@ -98,8 +101,6 @@ export default {
           urlArr.push(item.url);
         }
       });
-      console.log(urlArr, 111);
-      console.log(this.imageArr, 123);
       this.urlString = urlArr.join(",");
       this.$emit("uploadSuccess", urlArr);
     },
@@ -111,20 +112,12 @@ export default {
     },
     //文件超出个数限制时的钩子
     onExceed() {
-      this.$message.warning("最多上传" + this.uploadLimit + "张图片");
+      this.$message.warning(`最多上传${this.uploadLimit}张图片`);
     },
-    onChange(file, fileList) {},
-    header() {
-      let loginData = JSON.parse(localStorage.getItem("session"));
-      let tokenParmes = loginData.token;
-      let header = {
-        Authorization: `Token ${tokenParmes}`,
-        "Content-Type": "multipart/form-data"
-      };
-      return header;
+    onChange(file, fileList) {
+      console.log(file, fileList);
     },
     init() {
-      // this.imageArr = [];
       if (this.imageUrl) {
         let arr = this.imageUrl.split(",");
         this.imageArr = arr.map(o => {
