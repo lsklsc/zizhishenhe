@@ -39,18 +39,6 @@
           end-placeholder="结束日期"
         ></el-date-picker>
       </el-form-item>
-      <!-- <el-form-item label="服务区域：">
-        <el-select v-model="searchData.service_area" placeholder="全部">
-          <el-option value="全部"></el-option>
-          <el-option
-            v-for="item in serviceList"
-            :key="item.coding"
-            :label="item.name"
-            :value="item.coding"
-          >
-          </el-option>
-        </el-select>
-      </el-form-item> -->
       <el-form-item label="车辆类型：">
         <el-select v-model="searchData.car_type_id" placeholder="全部">
           <el-option
@@ -71,11 +59,13 @@
       >
       <el-button type="warning" @click="resetClk">重置</el-button>
       <el-button type="primary" @click="exportTable">导出</el-button>
-      <dataExport
-        ref="export"
-        filename="车辆管理"
-        :data="tableData"
-      ></dataExport>
+      <el-form-item>
+        <dataExport
+          ref="export"
+          filename="车辆管理"
+          :data="tableData"
+        ></dataExport>
+      </el-form-item>
       <el-form-item v-if="activeParams == '0'">
         <el-upload
           accept=".xls, .xlsx"
@@ -950,7 +940,6 @@ export default {
         }
       },
       rules: {
-        // name: [{ required: true, message: "请输入合同名称", trigger: "blur" }],
         car_color: [
           { required: true, message: "请选择车辆颜色", trigger: "change" }
         ],
@@ -1608,6 +1597,7 @@ export default {
       this.pageData.page_size = 10;
       // this.activeParams = "0";
       this.date1 = [];
+      this.dates = [];
       this.searchData = {};
       this.status = "";
       this.carData();

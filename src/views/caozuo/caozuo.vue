@@ -94,7 +94,6 @@ export default {
         ...this.searchData
       };
       selfApi.operationLog(data).then(res => {
-        console.log(res);
         if (res.data.code == 0) {
           this.listData = res.data.data;
         }

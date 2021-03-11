@@ -79,11 +79,13 @@
         >重置</el-button
       >
       <el-button type="primary" @click="exportTable">导出</el-button>
-      <dataExport
-        ref="export"
-        filename="资质管理"
-        :data="tableData"
-      ></dataExport>
+      <el-form-item>
+        <dataExport
+          ref="export"
+          filename="资质管理"
+          :data="tableData"
+        ></dataExport>
+      </el-form-item>
       <el-form-item v-if="activeParams == '0'">
         <el-upload
           accept=".xls, .xlsx"

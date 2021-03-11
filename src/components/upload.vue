@@ -4,8 +4,8 @@
       multiple
       action="http://filemanager.ztbory.com/v1/file/fileupload/"
       list-type="picture-card"
-      :data="data"
-      :header="headerObj"
+      :data="dataObj"
+      :headers="headerObj"
       name="files"
       :beforeUpload="beforeAvatarUpload"
       :on-preview="handlePictureCardPreview"
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      data: {
+      dataObj: {
         mkdir: "qualification" //测试用 qianlei
       },
       imageArr: [],
@@ -51,15 +51,15 @@ export default {
       dialogVisible: false,
       dialogImageUrl: "",
       headerObj: {
-        Authorization: `Token ${token}`,
-        "Content-Type": "multipart/form-data"
+        // Authorization: `Token ${token}`,
+        // "Content-Type": "multipart/form-data"
       }
     };
   },
   watch: {
     imageUrl: {
       handler(newName, oldName) {
-        console.log(newName, this.urlString);
+        // console.log(newName, 1, this.urlString);
         if (newName != this.urlString || !newName) {
           this.urlString = newName;
           this.imageUrl = newName;
@@ -71,12 +71,11 @@ export default {
     },
     mkdir: {
       handler(newName, oldName) {
-        this.data.mkdir = newName;
+        this.dataObj.mkdir = newName;
       },
       immediate: true
     }
   },
-  mounted() {},
   methods: {
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -108,7 +107,7 @@ export default {
       this.$message.warning(`最多上传${this.uploadLimit}张图片`);
     },
     onChange(file, fileList) {
-      console.log(file, fileList);
+      // console.log(file, fileList);
     },
     init() {
       if (this.imageUrl) {
@@ -129,7 +128,8 @@ export default {
         return false;
       }
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 
@@ -147,7 +147,7 @@ export default {
 .upload >>> .el-upload-list--picture-card .el-upload-list__item {
   width: 100px;
   height: 100px;
-  line-height: 100px;
+  /* line-height: 100px; */
 }
 .upload >>> .el-upload-list--picture-card .el-upload-list__item-thumbnail {
   width: 100px;
