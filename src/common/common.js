@@ -1,16 +1,14 @@
 import hint from '@/common/hint'
 //baseUrl本地地址
 // export const baseUrl = 'http://172.16.1.15:9009' // 本地地址/
-// export const baseUrl ='https://api.ztbory.com/dev/qualification' // 测试环境
-export const baseUrl ='https://api.ztbory.com/v3/qualification' // 正式环境
+export const baseUrl = 'https://api.ztbory.com/dev/qualification' // 测试环境
+// export const baseUrl ='https://api.ztbory.com/v3/qualification' // 正式环境
 
 // devUrl测试地址
-// export const devUrl ='https://api.ztbory.com/dev/qualification' // 测试环境
-// export const imgUrl = 'https://api.ztbory.com/dev' // 测试图片/
+export const devUrl = 'https://api.ztbory.com/dev/qualification' // 测试环境
 
 // devUrl生产地址
-export const devUrl ='https://api.ztbory.com/v3/qualification' // 生产环境
-export const imgUrl = 'https://api.ztbory.com/v3' // 线上图片/
+// export const devUrl ='https://api.ztbory.com/v3/qualification' // 生产环境
 
 // 过滤数据
 export function filterData(newData, oldData, seleModel, seachModel) {
@@ -24,7 +22,7 @@ export function filterData(newData, oldData, seleModel, seachModel) {
       cose.push(item)
       newData = cose
       return item
-    } else {  
+    } else {
       newData = cose
     }
   })

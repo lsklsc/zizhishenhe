@@ -106,11 +106,13 @@
         >重置</el-button
       >
       <el-button type="primary" @click="exportTable">导出</el-button>
-      <dataExport
-        ref="export"
-        filename="合同管理"
-        :data="tableData"
-      ></dataExport>
+      <el-form-item>
+        <dataExport
+          ref="export"
+          filename="合同管理"
+          :data="tableData"
+        ></dataExport>
+      </el-form-item>
       <el-form-item v-if="activeParams == '0'">
         <el-upload
           accept=".xls, .xlsx"
@@ -241,7 +243,6 @@
         </el-form-item>
         <el-form-item label="签订时间：" prop="signed_time">
           <el-date-picker
-            :picker-options="pickerOptions0"
             v-model="ruleForm.signed_time"
             type="date"
             value-format="yyyy-MM-dd"

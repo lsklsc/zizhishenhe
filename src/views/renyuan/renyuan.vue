@@ -83,14 +83,17 @@
         >重置</el-button
       >
       <el-button type="primary" @click="exportTable">导出</el-button>
-      <dataExport
-        ref="export"
-        filename="人员管理"
-        :data="tableData"
-      ></dataExport>
+      <el-form-item>
+        <dataExport
+          ref="export"
+          filename="人员管理"
+          :data="tableData"
+        ></dataExport>
+      </el-form-item>
       <el-form-item v-if="activeParams == '0'">
         <el-upload
           accept=".xls, .xlsx"
+          :show-file-list="false"
           action="string"
           :http-request="httpRequest"
         >
@@ -821,9 +824,9 @@ export default {
 </script>
 
 <style scoped>
-.content >>> .el-upload-list__item-name {
+/* .content >>> .el-upload-list__item-name {
   display: none;
-}
+} */
 .content >>> .el-upload.el-upload--text {
   border: 1px dashed #ccc;
 }

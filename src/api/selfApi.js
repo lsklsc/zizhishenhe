@@ -232,5 +232,8 @@ export default {
   importContract(data) {
     return fetch.importPost(`/qualification/contract_push/`, data)
   },
+  exportCart(data) {
+    return fetch.get(`/qualification/car_excel/`, data)
+  },
 
 }
