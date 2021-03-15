@@ -175,7 +175,10 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="车牌号：" prop="car_num">
-              <el-input v-model="ruleForm.car_num"></el-input>
+              <el-input
+                v-model="ruleForm.car_num"
+                placeholder="请填写车牌号"
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -214,7 +217,10 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="车辆资产编号：" prop="facility_num">
-              <el-input v-model="ruleForm.facility_num"></el-input>
+              <el-input
+                v-model="ruleForm.facility_num"
+                placeholder="请填写车辆资产编号"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -405,7 +411,10 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="品牌型号：" prop="brand">
-              <el-input v-model="ruleForm.brand"></el-input>
+              <el-input
+                v-model="ruleForm.brand"
+                placeholder="请填写品牌型号"
+              ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -469,7 +478,10 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="联系人：" prop="contacts">
-              <el-input v-model="ruleForm.contacts"></el-input>
+              <el-input
+                v-model="ruleForm.contacts"
+                placeholder="请填写联系人"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -492,7 +504,10 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="联系电话：" prop="phone">
-              <el-input v-model="ruleForm.phone"></el-input>
+              <el-input
+                v-model="ruleForm.phone"
+                placeholder="请填写联系电话"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -515,7 +530,10 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="运营单位：" prop="operate_unit">
-              <el-input v-model="ruleForm.operate_unit"></el-input>
+              <el-input
+                v-model="ruleForm.operate_unit"
+                placeholder="请填写运营单位"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -538,7 +556,10 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="管理单位：" prop="manage_unit">
-              <el-input v-model="ruleForm.manage_unit"></el-input>
+              <el-input
+                v-model="ruleForm.manage_unit"
+                placeholder="请填写管理单位"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -560,19 +581,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="是否安装计量称重设备：" prop="is_weight">
-              <el-select
-                v-model="ruleForm.is_weight"
-                placeholder="请选择是否安装计量称重设备"
-              >
-                <el-option
-                  v-for="item in gpsList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
+            <el-form-item label="产权单位：" prop="property_unit">
+              <el-input
+                v-model="ruleForm.property_unit"
+                placeholder="请填写产权单位"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -611,11 +624,6 @@
           </el-col>
         </el-row>
         <el-row>
-          <!-- <el-col :span="12">
-            <el-form-item label="公司名称：" prop="name">
-              <el-input v-model="ruleForm.name"></el-input>
-            </el-form-item>
-          </el-col> -->
           <el-col :span="12">
             <el-form-item label="车辆颜色：" prop="car_color">
               <el-select
@@ -627,6 +635,22 @@
                   :key="idx"
                   :label="i.label"
                   :value="i.car_color"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否安装计量称重设备：" prop="is_weight">
+              <el-select
+                v-model="ruleForm.is_weight"
+                placeholder="请选择是否安装计量称重设备"
+              >
+                <el-option
+                  v-for="item in gpsList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
                 >
                 </el-option>
               </el-select>
@@ -1062,6 +1086,9 @@ export default {
         ],
         is_self: [
           { required: true, message: "请选择是否涂装", trigger: "change" }
+        ],
+        property_unit: [
+          { required: true, message: "请填写产权单位", trigger: "blur" }
         ]
         // picture_before: [
         //   { required: true, message: "请选上传车身前照", trigger: "blur" }
@@ -1176,11 +1203,11 @@ export default {
         {
           value: "2",
           label: "柴油"
+        },
+        {
+          value: "无",
+          label: "无"
         }
-        // {
-        //   value: "3",
-        //   label: "新能源"
-        // },
       ],
       //尾气排放标准
       weiqiList: [
@@ -1349,7 +1376,7 @@ export default {
     //导入模板下载
     importClick() {
       const url =
-        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210302&filename=583929c4595544d080cb88980b8b74c9.xlsx";
+        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210315&filename=99d4b2c0f1aa4299b8a2d3a49bcb8241.xlsx";
       const link = document.createElement("a");
       link.style.display = "none";
       link.href = url;

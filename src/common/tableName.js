@@ -37,6 +37,7 @@ export default {
     'phone': '联系电话',
     'operate_unit': "运营单位",
     'manage_unit': '管理单位',
+    'property_unit': '产权单位',
   },
   tableName2: {
     //人员管理导出字段
