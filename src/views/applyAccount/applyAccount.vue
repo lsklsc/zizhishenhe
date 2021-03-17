@@ -211,6 +211,9 @@ export default {
   },
   mounted() {
     this.serviceData();
+  },
+  created() {
+    window.localStorage.clear();
   }
 };
 </script>

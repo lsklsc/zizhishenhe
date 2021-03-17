@@ -808,6 +808,10 @@
             <span v-if="detailObj.is_self == '0'">否</span>
             <span v-if="detailObj.is_self == '1'">是</span>
           </el-col>
+          <el-col :span="12">
+            产权单位：
+            <span>{{ detailObj.property_unit }}</span>
+          </el-col>
         </el-row>
         <el-row>
           <el-col class="el">
@@ -1376,7 +1380,7 @@ export default {
     //导入模板下载
     importClick() {
       const url =
-        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210315&filename=99d4b2c0f1aa4299b8a2d3a49bcb8241.xlsx";
+        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210316&filename=523a824fbcf340d993d50bb1d2e5854e.xlsx";
       const link = document.createElement("a");
       link.style.display = "none";
       link.href = url;

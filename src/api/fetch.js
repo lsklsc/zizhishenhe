@@ -12,21 +12,22 @@ Util.ajax.defaults.headers.common = {
 var loading;
 Util.ajax.interceptors.request.use(
   config => {
+    console.log(config)
     if (config.params && config.params.un_loding) {
       //在这里做loading ...
     } else {
       loading = Loading.service({
         lock: true,
         text: "正在加载...",
-        // spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
     }
-
     // 获取token
     let token = localStorage.getItem('token');
     if (token) {
       config.headers["Authorization"] = `Token ${token}`;
+    } else {
+      delete config.headers["Authorization"]
     }
     return config;
   },
