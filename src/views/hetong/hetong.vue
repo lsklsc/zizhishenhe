@@ -725,7 +725,7 @@ export default {
     //导入模板下载
     importClick() {
       const url =
-        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210302&filename=33a072958e0c4ee0a8019ddfcaef521a.xlsx";
+        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210316&filename=937e88b82be344fa959df0add9f86e1d.xlsx";
       const link = document.createElement("a");
       link.style.display = "none";
       link.href = url;

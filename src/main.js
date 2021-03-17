@@ -17,8 +17,6 @@ Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts;
 window.APP_INFO = process.env.APP_INFO
 
-
-
 // 注册导航守卫(回调函数)
 // router.beforeEach((to, from, next) => {
 //   if (to.path === "/login") {
