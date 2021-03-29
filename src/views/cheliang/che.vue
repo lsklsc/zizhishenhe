@@ -216,13 +216,29 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-form-item label="车辆颜色：" prop="car_color">
+              <el-select
+                v-model="ruleForm.car_color"
+                placeholder="请选择车辆颜色"
+              >
+                <el-option
+                  v-for="(i, idx) in colorList"
+                  :key="idx"
+                  :label="i.label"
+                  :value="i.car_color"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
             <el-form-item label="车辆资产编号：" prop="facility_num">
               <el-input
                 v-model="ruleForm.facility_num"
                 placeholder="请填写车辆资产编号"
               ></el-input>
             </el-form-item>
-          </el-col>
+          </el-col> -->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -345,6 +361,18 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
+            <el-form-item label="接管日期：" prop="receive_date">
+              <el-date-picker
+                :picker-options="pickerOptions0"
+                v-model="ruleForm.receive_date"
+                type="date"
+                value-format="yyyy-MM-dd"
+                placeholder="请选择接管日期"
+              >
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
             <el-form-item label="指标状况：" prop="facility_status">
               <el-select
                 v-model="ruleForm.facility_status"
@@ -359,7 +387,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -388,25 +416,13 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">
+          <!-- <el-col :span="12">
             <el-form-item label="购置费用：" prop="cost">
               <el-input v-model="ruleForm.cost" placeholder="万元"
                 ><template slot="append">万元</template></el-input
               >
             </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="接管日期：" prop="receive_date">
-              <el-date-picker
-                :picker-options="pickerOptions0"
-                v-model="ruleForm.receive_date"
-                type="date"
-                value-format="yyyy-MM-dd"
-                placeholder="请选择接管日期"
-              >
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
+          </el-col> -->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -427,10 +443,10 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="绑定处理厂1：" prop="plant1">
+            <el-form-item label="末端设施1：" prop="mo_plant1">
               <el-select
-                v-model="ruleForm.plant1"
-                placeholder="请选择绑定处理厂1"
+                v-model="ruleForm.mo_plant1"
+                placeholder="请选择末端设施1"
               >
                 <el-option
                   v-for="item in moduanList"
@@ -461,10 +477,10 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="绑定处理厂2：" prop="plant2">
+            <el-form-item label="末端设施2：" prop="mo_plant2">
               <el-select
-                v-model="ruleForm.plant2"
-                placeholder="请选择绑定处理厂2"
+                v-model="ruleForm.mo_plant2"
+                placeholder="请选择末端设施2"
               >
                 <el-option
                   v-for="item in moduanList"
@@ -487,10 +503,10 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="绑定处理厂3：" prop="plant3">
+            <el-form-item label="中转设施1：" prop="zhong_plant1">
               <el-select
-                v-model="ruleForm.plant3"
-                placeholder="请选择绑定处理厂3"
+                v-model="ruleForm.zhong_plant1"
+                placeholder="请选择中转设施1"
               >
                 <el-option
                   v-for="item in moduanList"
@@ -513,10 +529,10 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="绑定处理厂4：" prop="plant4">
+            <el-form-item label="中转设施2：" prop="zhong_plant2">
               <el-select
-                v-model="ruleForm.plant4"
-                placeholder="请选择绑定处理厂4"
+                v-model="ruleForm.zhong_plant2"
+                placeholder="请选择中转设施2"
               >
                 <el-option
                   v-for="item in moduanList"
@@ -539,6 +555,30 @@
         </el-row>
         <el-row>
           <el-col :span="12">
+            <el-form-item label="管理单位：" prop="manage_unit">
+              <el-input
+                v-model="ruleForm.manage_unit"
+                placeholder="请填写管理单位"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="是否涂装：" prop="is_self">
+              <el-select
+                v-model="ruleForm.is_self"
+                placeholder="请选择是否涂装"
+              >
+                <el-option
+                  v-for="item in zuoyeList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
             <el-form-item label="绑定处理厂5：" prop="plant5">
               <el-select
                 v-model="ruleForm.plant5"
@@ -553,15 +593,7 @@
                 </el-option>
               </el-select>
             </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="管理单位：" prop="manage_unit">
-              <el-input
-                v-model="ruleForm.manage_unit"
-                placeholder="请填写管理单位"
-              ></el-input>
-            </el-form-item>
-          </el-col>
+          </el-col> -->
         </el-row>
         <el-row>
           <el-col :span="12">
@@ -595,46 +627,13 @@
               <el-select
                 v-model="ruleForm.service_area"
                 placeholder="请选择服务区域"
+                @change="quChange"
               >
                 <el-option
                   v-for="item in serviceList"
                   :key="item.coding"
                   :label="item.name"
                   :value="item.coding"
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="是否涂装：" prop="is_self">
-              <el-select
-                v-model="ruleForm.is_self"
-                placeholder="请选择是否涂装"
-              >
-                <el-option
-                  v-for="item in zuoyeList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="车辆颜色：" prop="car_color">
-              <el-select
-                v-model="ruleForm.car_color"
-                placeholder="请选择车辆颜色"
-              >
-                <el-option
-                  v-for="(i, idx) in colorList"
-                  :key="idx"
-                  :label="i.label"
-                  :value="i.car_color"
                 >
                 </el-option>
               </el-select>
@@ -651,6 +650,26 @@
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="街道：" prop="street_coding">
+              <el-select
+                multiple
+                collapse-tag
+                v-model="ruleForm.street_coding"
+                placeholder="请选择街道"
+              >
+                <el-option
+                  v-for="item in streetList"
+                  :key="item.coding"
+                  :label="item.name"
+                  :value="item.coding"
                 >
                 </el-option>
               </el-select>
@@ -720,7 +739,8 @@
             <span v-if="detailObj.power_type == '2'">混动</span>
             <span v-if="detailObj.power_type == '3'">新能源</span> -->
           </el-col>
-          <el-col :span="12">车辆资产编号：{{ detailObj.facility_num }}</el-col>
+          <el-col :span="12">运营年限：{{ detailObj.run_year }}年</el-col>
+          <!-- <el-col :span="12">车辆资产编号：{{ detailObj.facility_num }}</el-col> -->
         </el-row>
         <el-row>
           <el-col :span="12"
@@ -740,6 +760,22 @@
         </el-row>
         <el-row>
           <el-col :span="12">生产日期：{{ detailObj.new_date }}</el-col>
+          <el-col :span="12">登记日期：{{ detailObj.reg_date }}</el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">报废日期：{{ detailObj.del_date }}</el-col>
+          <el-col :span="12">接管日期：{{ detailObj.receive_date }}</el-col>
+          <!-- <el-col :span="12"
+            >指标状况：
+            <span v-if="detailObj.facility_status == '1'">审核中</span>
+            <span v-if="detailObj.facility_status == '2'">审核通过</span>
+          </el-col> -->
+        </el-row>
+        <el-row>
+          <!-- <el-col :span="12">购置费用：{{ detailObj.cost }}万元</el-col> -->
+        </el-row>
+        <el-row>
+          <el-col :span="12">品牌型号：{{ detailObj.brand }}</el-col>
           <el-col :span="12"
             >车辆外观尺寸：长{{ detailObj.car_size_length }}米 ， 宽{{
               detailObj.car_size_width
@@ -747,27 +783,15 @@
           >
         </el-row>
         <el-row>
-          <el-col :span="12">报废日期：{{ detailObj.del_date }}</el-col>
-          <el-col :span="12"
-            >指标状况：
-            <span v-if="detailObj.facility_status == '1'">审核中</span>
-            <span v-if="detailObj.facility_status == '2'">审核通过</span>
+          <el-col :span="12">末端设施1：{{ detailObj.mo_plant1 }}</el-col>
+          <el-col :span="12">
+            是否安装涂装：
+            <span v-if="detailObj.is_self == '0'">否</span>
+            <span v-if="detailObj.is_self == '1'">是</span>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">购置费用：{{ detailObj.cost }}万元</el-col>
-          <el-col :span="12">登记日期：{{ detailObj.reg_date }}</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">品牌型号：{{ detailObj.brand }}</el-col>
-          <el-col :span="12">接管日期：{{ detailObj.receive_date }}</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">绑定处理厂1：{{ detailObj.plant1 }}</el-col>
-          <el-col :span="12">运营年限：{{ detailObj.run_year }}年</el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">绑定处理厂2：{{ detailObj.plant2 }}</el-col>
+          <el-col :span="12">末端设施2：{{ detailObj.mo_plant2 }}</el-col>
           <el-col :span="12">
             是否有能力作业：
             <span v-if="detailObj.is_runing == '0'">否</span>
@@ -775,16 +799,20 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">绑定处理厂3：{{ detailObj.plant3 }}</el-col>
+          <el-col :span="12">中转设施1：{{ detailObj.zhong_plant1 }}</el-col>
           <el-col :span="12">联系人：{{ detailObj.contacts }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">绑定处理厂4：{{ detailObj.plant4 }}</el-col>
+          <el-col :span="12">中转设施2：{{ detailObj.zhong_plant2 }}</el-col>
           <el-col :span="12">联系电话：{{ detailObj.phone }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">绑定处理厂5：{{ detailObj.plant5 }}</el-col>
+          <!-- <el-col :span="12">绑定处理厂5：{{ detailObj.plant5 }}</el-col> -->
           <el-col :span="12">运营单位：{{ detailObj.operate_unit }}</el-col>
+          <el-col :span="12">
+            产权单位：
+            <span>{{ detailObj.property_unit }}</span>
+          </el-col>
         </el-row>
         <el-row>
           <el-col :span="12"
@@ -795,24 +823,14 @@
           <el-col :span="12">管理单位：{{ detailObj.manage_unit }}</el-col>
         </el-row>
         <el-row>
-          <el-col :span="12">服务区域：{{ detailObj.area_name }}</el-col>
+          <el-col :span="12">服务区域：{{ detailObj.street_name }}</el-col>
           <el-col :span="12">
             是否安装计量称重设备：
             <span v-if="detailObj.is_weight == '0'">否</span>
             <span v-if="detailObj.is_weight == '1'">是</span>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="12">
-            是否安装涂装：
-            <span v-if="detailObj.is_self == '0'">否</span>
-            <span v-if="detailObj.is_self == '1'">是</span>
-          </el-col>
-          <el-col :span="12">
-            产权单位：
-            <span>{{ detailObj.property_unit }}</span>
-          </el-col>
-        </el-row>
+        <el-row> </el-row>
         <el-row>
           <el-col class="el">
             车身照片：
@@ -978,9 +996,9 @@ export default {
         car_type_id: [
           { required: true, message: "请选择车辆类型", trigger: "change" }
         ],
-        facility_num: [
-          { required: true, message: "请选择填写资产编号", trigger: "change" }
-        ],
+        // facility_num: [
+        //   { required: true, message: "请选择填写资产编号", trigger: "change" }
+        // ],
         power_type: [
           { required: true, message: "请选择车辆动力类型", trigger: "change" }
         ],
@@ -1011,18 +1029,18 @@ export default {
         new_date: [
           { required: true, message: "请选择生产日期", trigger: "blur" }
         ],
-        facility_status: [
-          { required: true, message: "请选择指标状况", trigger: "change" }
-        ],
+        // facility_status: [
+        //   { required: true, message: "请选择指标状况", trigger: "change" }
+        // ],
         del_date: [
           { required: true, message: "请选择报废日期", trigger: "blur" }
         ],
         reg_date: [
           { required: true, message: "请选择登记日期", trigger: "blur" }
         ],
-        cost: [
-          { required: true, message: "请选择填写购置费用", trigger: "blur" }
-        ],
+        // cost: [
+        //   { required: true, message: "请选择填写购置费用", trigger: "blur" }
+        // ],
         receive_date: [
           { required: true, message: "请选择接管日期", trigger: "blur" }
         ],
@@ -1032,19 +1050,19 @@ export default {
         run_year: [
           { required: true, message: "请选择填写运营年限", trigger: "blur" }
         ],
-        plant1: [
-          { required: true, message: "请选择绑定处理厂1", trigger: "change" }
+        mo_plant1: [
+          { required: true, message: "请选择末端设施1", trigger: "change" }
         ],
         is_runing: [
           { required: true, message: "请选择是否有能力作业", trigger: "change" }
         ],
-        // plant2: [
+        // mo_plant2: [
         //   { required: true, message: "请选择绑定处理厂2", trigger: "change" }
         // ],
         contacts: [
           { required: true, message: "请填写联系人", trigger: "blur" }
         ],
-        // plant3: [
+        // zhong_plant1: [
         //   { required: true, message: "请选择绑定处理厂3", trigger: "change" }
         // ],
         phone: [
@@ -1063,7 +1081,7 @@ export default {
             }
           }
         ],
-        // plant4: [
+        // zhong_plant2: [
         //   { required: true, message: "请选择绑定处理厂4", trigger: "change" }
         // ],
         operate_unit: [
@@ -1087,6 +1105,9 @@ export default {
         ],
         service_area: [
           { required: true, message: "请选择服务区域", trigger: "change" }
+        ],
+        street_coding: [
+          { required: true, message: "请选择街道", trigger: "change" }
         ],
         is_self: [
           { required: true, message: "请选择是否涂装", trigger: "change" }
@@ -1275,6 +1296,8 @@ export default {
       ],
       //服务区域列表
       serviceList: [],
+      //街道列表
+      streetList: [],
       cartList: [], //车身照片
       dialogVisible: false,
       dialogTitle: "",
@@ -1380,7 +1403,7 @@ export default {
     //导入模板下载
     importClick() {
       const url =
-        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210316&filename=523a824fbcf340d993d50bb1d2e5854e.xlsx";
+        "http://filemanager.ztbory.com/v1/file/filedownload/?bucket=qualification&path=20210326&filename=a7af07fea9ff44469f7273a771952328.xlsx";
       const link = document.createElement("a");
       link.style.display = "none";
       link.href = url;
@@ -1481,61 +1504,91 @@ export default {
     },
     //新增 编辑
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (!this.ruleForm.picture_before) {
-          this.$message.warning("请上传车身前照片");
-          return;
-        }
-        if (!this.ruleForm.picture_left) {
-          this.$message.warning("请上传车身左照片");
-          return;
-        }
-        if (!this.ruleForm.picture_right) {
-          this.$message.warning("请上传车身右照片");
-          return;
-        }
-        if (valid) {
-          if (this.ruleForm.id) {
-            let objData = {
-              status: this.ruleForm.status,
-              car_id: this.ruleForm.car_id
-            };
-            for (let item in this.ruleForm) {
-              for (let obj in this.oldruleForm) {
-                if (
-                  item == obj &&
-                  this.ruleForm[item] != this.oldruleForm[obj]
-                ) {
-                  console.log(item);
-                  objData[item] = this.ruleForm[item];
-                }
-              }
-            }
-            console.log(objData);
-            selfApi.updataCar(this.ruleForm.id, objData).then(res => {
-              console.log(res);
-              if (res.data.code == 0) {
-                this.$message.success("编辑成功!");
-                this.carData();
-                this.dialogVisible1 = false;
-              } else {
-                this.$message.warning(res.data.msg);
-              }
-            });
-          } else {
-            selfApi.addCar(this.ruleForm).then(res => {
-              if (res.data.code == 0) {
-                this.$message.success("新增成功!");
-                this.dialogVisible1 = false;
-                this.carData();
-              } else {
-                this.$message.warning(res.data.msg);
-              }
-            });
-          }
+      // this.$refs[formName].validate(valid => {
+      // if (!this.ruleForm.picture_before) {
+      //   this.$message.warning("请上传车身前照片");
+      //   return;
+      // }
+      // if (!this.ruleForm.picture_left) {
+      //   this.$message.warning("请上传车身左照片");
+      //   return;
+      // }
+      // if (!this.ruleForm.picture_right) {
+      //   this.$message.warning("请上传车身右照片");
+      //   return;
+      // }
+      // if (valid) {
+      if (this.ruleForm.id) {
+        this.compileCar(); //编辑
+      } else {
+        this.addCar(); //新增
+      }
+      // } else {
+      //   console.log("error submit!!");
+      //   return false;
+      // }
+      // });
+    },
+    //新增
+    addCar() {
+      let data = {
+        ...this.ruleForm
+      };
+      let nameArr = [];
+      let codingArr = [];
+      this.ruleForm.street_coding.forEach(element => {
+        console.log(element);
+        let obj = this.streetList.find(item => {
+          console.log(item, 1);
+          return item.coding === element;
+        });
+        nameArr.push(obj.name);
+        codingArr.push(obj.coding);
+      });
+      data.street_name = nameArr.join(",");
+      data.street_coding = codingArr.join(",");
+      selfApi.addCar(data).then(res => {
+        if (res.data.code == 0) {
+          this.$message.success("新增成功!");
+          this.dialogVisible1 = false;
+          this.carData();
         } else {
-          console.log("error submit!!");
-          return false;
+          this.$message.error(res.data.msg);
+        }
+      });
+    },
+    //编辑
+    compileCar() {
+      let objData = {
+        status: this.ruleForm.status,
+        car_id: this.ruleForm.car_id
+      };
+      for (let item in this.ruleForm) {
+        for (let obj in this.oldruleForm) {
+          if (item == obj && this.ruleForm[item] != this.oldruleForm[obj]) {
+            objData[item] = this.ruleForm[item];
+          }
+        }
+      }
+      if (objData.street_coding) {
+        let nameArr = [];
+        objData.street_coding.forEach(element => {
+          let obj = this.streetList.find(item => {
+            return item.coding === element;
+          });
+          nameArr.push(obj.name);
+        });
+        objData.street_name = nameArr.join(",");
+      }
+      objData.street_coding = this.ruleForm.street_coding.join(",");
+      console.log(objData);
+      selfApi.updataCar(this.ruleForm.id, objData).then(res => {
+        if (res.data.code == 0) {
+          this.$message.success("编辑成功!");
+          this.carData();
+          this.dialogVisible1 = false;
+        } else {
+          this.$message.error(res.data.msg);
         }
       });
     },
@@ -1554,11 +1607,20 @@ export default {
     },
     //编辑打开弹窗
     updataClick(row) {
-      console.log(row);
       this.dialogTitle = "修改";
       this.dialogVisible1 = true;
+      this.quChange(row.service_area);
       this.oldruleForm = { ...row };
       this.ruleForm = { ...row };
+      this.ruleForm.street_coding = this.ruleForm.street_coding.split(",");
+      this.ruleForm.street_name = this.ruleForm.street_name.split(",");
+
+      this.oldruleForm.street_coding = this.oldruleForm.street_coding.split(
+        ","
+      );
+      this.oldruleForm.street_name = this.oldruleForm.street_name.split(",");
+      console.log(this.ruleForm);
+      console.log(this.oldruleForm);
     },
     //删除
     deleteClick(row) {
@@ -1652,6 +1714,30 @@ export default {
         }
       });
     },
+
+    //区change 获取街道
+    quChange(e) {
+      let data = {
+        area_coding: e
+      };
+      selfApi.street_list(data).then(res => {
+        if (res.data.code == 0) {
+          this.streetList = res.data.data.data;
+        }
+      });
+    },
+    //获取区
+    serviceData() {
+      let data = {
+        company_id: this.company_id
+      };
+      selfApi.quCheZizhiData(data).then(res => {
+        if (res.data.code == 0) {
+          this.serviceList = res.data.data.data;
+        }
+      });
+    },
+
     //获取末端厂
     muduanData() {
       let data = {
@@ -1661,18 +1747,6 @@ export default {
         console.log(res);
         if (res.data.code == 0) {
           this.moduanList = res.data.data.data;
-        }
-      });
-    },
-    //获取服务区域
-    serviceData() {
-      let data = {
-        company_id: this.company_id
-      };
-      selfApi.quCheZizhiData(data).then(res => {
-        if (res.data.code == 0) {
-          console.log(res);
-          this.serviceList = res.data.data.data;
         }
       });
     }

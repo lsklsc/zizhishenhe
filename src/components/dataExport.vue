@@ -201,7 +201,7 @@ export default {
         }
         return;
       });
-      arr = arr.sort();
+      // arr = arr.sort();
       let header = [...arr];
       arr.map((v, i) => {
         for (let k in this.tableName) {

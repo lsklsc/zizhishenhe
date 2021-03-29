@@ -34,7 +34,7 @@ export default {
     },
     mkdir: {
       type: String,
-      default: "qualification"
+      default: "qianlei"
     },
     uploadLimit: {
       type: Number,
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       dataObj: {
-        mkdir: "qualification" //测试用 qianlei
+        mkdir: "qianlei" //测试用 qianlei  线上 qualification
       },
       imageArr: [],
       urlString: "",
