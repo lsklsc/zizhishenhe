@@ -79,7 +79,7 @@ export default {
                 bold: true
               },
               fill: {
-                fgColor: { rgb: "#fff" }
+                fgColor: { rgb: "ffffff" }
               }
             }
           ]

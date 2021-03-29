@@ -32,7 +32,7 @@
               <el-form-item label="社会统一信用代码：" prop="credit_code">
                 <el-input v-model="ruleForm.credit_code"></el-input>
               </el-form-item>
-              <el-form-item label="服务区域" prop="service_area">
+              <el-form-item label="服务区域：" prop="service_area">
                 <el-select
                   v-model="ruleForm.service_area"
                   placeholder="请选择服务区域"
@@ -46,6 +46,22 @@
                   >
                   </el-option>
                 </el-select>
+              </el-form-item>
+              <el-form-item label="街道：" prop="street_coding">
+                <!-- <el-select
+                  v-model="ruleForm.street_coding"
+                  placeholder="请选择服务区域："
+                  disabled
+                >
+                  <el-option
+                    v-for="(item, index) in streetList"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.coding"
+                  >
+                  </el-option>
+                </el-select> -->
+                <el-input v-model="ruleForm.street_name" disabled></el-input>
               </el-form-item>
               <el-form-item label="邮箱：" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
@@ -127,9 +143,10 @@ export default {
       role_type: "",
       c_id: "",
       company_id: "",
-      ruleForm: {}, //公司信息
+      ruleForm: { street_coding: "", street_name: "" }, //公司信息
       userObj: {}, //个人信息
       selectList: [],
+      streetList: [],
       limt: 1,
       //合同上传
       baseUrl: "",
@@ -263,6 +280,12 @@ export default {
       selfApi.detailCompany(data).then(res => {
         if (res.data.code == 200) {
           this.ruleForm = res.data.data.data.results[0];
+          // this.ruleForm.street_name = res.data.data.data.results[0].street_name.split(
+          //   ","
+          // );
+          // this.ruleForm.street_coding = res.data.data.data.results[0].street_coding.split(
+          //   ","
+          // );
           this.imageUrl = `${this.baseUrl}/${res.data.data.data.results[0].company_picture}`;
         }
       });
@@ -288,6 +311,16 @@ export default {
           this.selectList = res.data.data.data;
         }
       });
+    },
+    streetData() {
+      let data = {
+        area_coding: this.userObj.service_area
+      };
+      selfApi.street_list(data).then(res => {
+        if (res.data.code == 0) {
+          this.streetList = res.data.data.data;
+        }
+      });
     }
   },
   mounted() {
@@ -298,6 +331,7 @@ export default {
     this.companyObj();
     this.serviceList();
     this.userObjDetail();
+    this.streetData();
   }
 };
 </script>
