@@ -179,6 +179,13 @@ export default {
   serviceData(data) {
     return fetch.get(`/qualification/coding_list/`, data)
   },
+  //街道区域
+  street_list(data) {
+    return fetch.get(`/qualification/street_list/`, data)
+  },
+
+
+
   //车辆、人、资质：获取公司绑定服务区域列表
   quCheZizhiData(data) {
     return fetch.get(`/qualification/company_area_list/`, data)

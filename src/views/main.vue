@@ -82,7 +82,9 @@
           <!-- <div class="bottom">刘书坤</div> -->
         </div>
         <el-main>
-          <router-view></router-view>
+          <!-- <transition name="transitionRouter"> -->
+          <router-view class="router-view"></router-view>
+          <!-- </transition> -->
         </el-main>
       </div>
     </el-container>
@@ -152,7 +154,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.content-box{
+.transitionRouter-enter-active,
+.transitionRouter-leave-active {
+  transition: all 0.4s;
+}
+.transitionRouter-enter,
+.transitionRouter-leave {
+  transform: translate3d(100%, 0, 0);
+}
+.router-view {
+  height: 100%;
+}
+.content-box {
   box-sizing: border-box;
 }
 .frontMenu {

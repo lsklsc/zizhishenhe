@@ -20,9 +20,9 @@
               <el-form-item label="负责人/法人姓名：" prop="admin">
                 <el-input v-model="ruleForm.admin"></el-input>
               </el-form-item>
-              <el-form-item label="负责人身份证：" prop="id_card">
+              <!-- <el-form-item label="负责人身份证：" prop="id_card">
                 <el-input v-model="ruleForm.id_card"></el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="负责人联系电话：" prop="phone">
                 <el-input v-model="ruleForm.phone"></el-input>
               </el-form-item>
@@ -142,14 +142,14 @@ export default {
         admin: [
           { required: true, message: "请输入负责人/法人姓名", trigger: "blur" }
         ],
-        id_card: [
-          {
-            required: true,
-            pattern: /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
-            message: "身份证号格式错误",
-            trigger: "blur"
-          }
-        ],
+        // id_card: [
+        //   {
+        //     required: true,
+        //     pattern: /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
+        //     message: "身份证号格式错误",
+        //     trigger: "blur"
+        //   }
+        // ],
         phone: [
           { required: true, message: "请输入负责人联系电话", trigger: "blur" }
         ],
@@ -336,5 +336,8 @@ export default {
   width: 150px;
   height: 150px;
   display: block;
+}
+.el-select {
+  width: 400px !important;
 }
 </style>

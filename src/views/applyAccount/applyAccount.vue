@@ -20,7 +20,7 @@
             <el-input v-model="ruleForm.admin"></el-input>
           </el-form-item>
         </div>
-        <div style="display:flex">
+        <!-- <div style="display:flex">
           <el-form-item prop="id_card">
             <span style="color:red;">*</span>负责人身份证：
             <el-input v-model="ruleForm.id_card"></el-input>
@@ -29,7 +29,7 @@
             <span style="color:red;">*</span>负责人联系电话：
             <el-input maxlength="11" v-model="ruleForm.phone"></el-input>
           </el-form-item>
-        </div>
+        </div> -->
         <div style="display:flex">
           <el-form-item prop="address">
             <span style="color:red;">*</span>地址：
@@ -50,9 +50,33 @@
             <el-select
               v-model="ruleForm.service_area"
               placeholder="请选择服务区域"
+              @change="areaChange"
             >
               <el-option
                 v-for="item in serviceList"
+                :key="item.coding"
+                :label="item.name"
+                :value="item.coding"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </div>
+        <div style="display:flex">
+          <el-form-item prop="phone">
+            <span style="color:red;">*</span>负责人联系电话：
+            <el-input maxlength="11" v-model="ruleForm.phone"></el-input>
+          </el-form-item>
+          <el-form-item prop="street_coding" style="width:100%">
+            <div><span style="color:red;">*</span>街道：</div>
+            <el-select
+              multiple
+              collapse-tag
+              v-model="ruleForm.street_coding"
+              placeholder="请选择街道"
+            >
+              <el-option
+                v-for="item in streetList"
                 :key="item.coding"
                 :label="item.name"
                 :value="item.coding"
@@ -69,14 +93,14 @@
             @uploadSuccess="uploadSuccess"
           ></upload>
         </el-form-item>
-        <el-form-item prop="contract_file">
+        <!-- <el-form-item prop="contract_file">
           <span style="color:red;">*</span>合同附件：
           <upload
             :imageUrl="ruleForm.contract_file"
             ref="upload"
             @uploadSuccess="uploadSuccess1"
           ></upload>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="" prop="company_picture">
           <span style="color:red;">*</span>营业执照：
           <upload
@@ -106,6 +130,7 @@ export default {
     return {
       ruleForm: {},
       serviceList: [],
+      streetList: [],
       rules: {
         name: [
           { required: true, message: "请输入公司名称", trigger: "blur" }
@@ -114,14 +139,14 @@ export default {
         admin: [
           { required: true, message: "请输入负责人/法人", trigger: "blur" }
         ],
-        id_card: [
-          {
-            required: true,
-            pattern: /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
-            message: "身份证号格式错误",
-            trigger: "blur"
-          }
-        ],
+        // id_card: [
+        //   {
+        //     required: true,
+        //     pattern: /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
+        //     message: "身份证号格式错误",
+        //     trigger: "blur"
+        //   }
+        // ],
         phone: [
           { required: true, message: "请输入手机号", trigger: "change" }
           // { min: 11, max: 11, message: "长度在 3 到 5 个字符", trigger: "blur" }
@@ -136,6 +161,9 @@ export default {
         ],
         service_area: [
           { required: true, message: "请选择服务区域", trigger: "change" }
+        ],
+        street_coding: [
+          { required: true, message: "请选择街道", trigger: "change" }
         ],
         email: [
           {
@@ -155,25 +183,39 @@ export default {
           this.$message.warning("请上传资质附件");
           return;
         }
-        if (!this.ruleForm.contract_file) {
-          this.$message.warning("请上传合同附件");
-          return;
-        }
+        // if (!this.ruleForm.contract_file) {
+        //   this.$message.warning("请上传合同附件");
+        //   return;
+        // }
         if (!this.ruleForm.company_picture) {
           this.$message.warning("请上传营业执照");
           return;
         }
         if (valid) {
-          selfApi.addCompany(this.ruleForm).then(res => {
+          let data = {
+            ...this.ruleForm
+          };
+          let nameArr = [];
+          let codingArr = [];
+          this.ruleForm.street_coding.forEach(element => {
+            let obj = this.streetList.find(item => {
+              return item.coding === element;
+            });
+            nameArr.push(obj.name);
+            codingArr.push(obj.coding);
+          });
+          data.street_name = nameArr.join(",");
+          data.street_coding = codingArr.join(",");
+          selfApi.addCompany(data).then(res => {
             if (res.data.code == 0) {
               this.$notify({
                 title: "提交成功!",
                 type: "success",
                 offset: 100
               });
-              setTimeout(() => {
-                window.location.reload();
-              }, 1500);
+              // setTimeout(() => {
+              //   window.location.reload();
+              // }, 1500);
             } else {
               this.$notify({
                 title: res.data.msg,
@@ -200,7 +242,20 @@ export default {
     uploadSuccess2(arr) {
       this.ruleForm.company_picture = arr.join(",");
     },
-    //获取服务区域
+    //区change获取街道
+    areaChange(e) {
+      this.ruleForm.street_name = "";
+      this.ruleForm.street_coding = "";
+      let data = {
+        area_coding: e
+      };
+      selfApi.street_list(data).then(res => {
+        if (res.data.code == 0) {
+          this.streetList = res.data.data.data;
+        }
+      });
+    },
+    //获取服务区列表
     serviceData() {
       selfApi.serviceData().then(res => {
         if (res.data.code == 0) {
@@ -213,6 +268,8 @@ export default {
     this.serviceData();
   },
   created() {
+    //解决select属性multiple页面初始化多选触发的校验 this.ruleForm为页面属性接收值 service_area为下拉框v-model对应的值
+    this.$set(this.ruleForm, "street_coding", []);
     window.localStorage.clear();
   }
 };

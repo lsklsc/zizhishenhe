@@ -1,12 +1,17 @@
 import axios from 'axios'
-import { baseUrl, devUrl } from '@/common/common'
+import {
+  baseUrl,
+  devUrl
+} from '@/common/common'
 let util = {}
 
 const ajaxUrl = process.env.NODE_ENV === 'development'
   // 测试环境api接口
-  ? baseUrl
+  ?
+  baseUrl
   // 线上环境api接口
-  : devUrl
+  :
+  devUrl
 
 util.ajax = axios.create({
   baseURL: ajaxUrl,
