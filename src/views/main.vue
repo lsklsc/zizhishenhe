@@ -2,68 +2,10 @@
   <div class="content-box">
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '250px'">
-        <el-menu
-          class="frontMenu"
-          :collapse="isCollapse"
-          :default-active="defaultActive"
-          :unique-opened="false"
-          background-color="#02152c"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          :collapse-transition="false"
-          router
-        >
-          <template v-for="item in menu">
-            <template v-if="item.children">
-              <el-submenu :key="item.nav_id" :index="item.nav_name">
-                <template slot="title">
-                  <i class="iconfont" :class="item.icon"></i>
-                  <span style="margin-left: 8px;">{{ item.nav_name }}</span>
-                </template>
-                <template v-for="item in item.children">
-                  <template v-if="item.children">
-                    <el-submenu :key="item.nav_id" :index="item.nav_name">
-                      <template slot="title">
-                        <!-- <i class="iconfont" :class="item.icon"></i> -->
-                        <span style="margin-left: 8px;">{{
-                          item.nav_name
-                        }}</span>
-                      </template>
-                      <el-menu-item-group>
-                        <template v-for="child in item.children">
-                          <el-menu-item
-                            :key="child.nav_id"
-                            :index="child.path"
-                            >{{ child.nav_name }}</el-menu-item
-                          >
-                        </template>
-                      </el-menu-item-group>
-                    </el-submenu>
-                  </template>
-                  <template v-else>
-                    <el-menu-item :key="item.nav_id" :index="item.path">
-                      <!-- <i class="el-icon-setting"></i> -->
-                      <span style="margin-left: 8px;" slot="title">{{
-                        item.nav_name
-                      }}</span>
-                    </el-menu-item>
-                  </template>
-                </template>
-              </el-submenu>
-            </template>
-            <template v-else>
-              <el-menu-item :key="item.nav_id" :index="item.path">
-                <i :class="item.icon"></i>
-                <span style="margin-left: 8px;" slot="title">
-                  {{ item.nav_name }}
-                </span>
-              </el-menu-item>
-            </template>
-          </template>
-        </el-menu>
+        <menus :isCollapse="isCollapse"></menus>
       </el-aside>
       <div class="content-right">
-        <div class="header">
+        <div class="headers">
           <div class="top">
             <img
               src="../assets/icon.png"
@@ -79,12 +21,11 @@
               <div class="logOut" @click="logOut">退出</div>
             </div>
           </div>
-          <!-- <div class="bottom">刘书坤</div> -->
         </div>
         <el-main>
-          <!-- <transition name="transitionRouter"> -->
-          <router-view class="router-view"></router-view>
-          <!-- </transition> -->
+          <div class="content">
+            <router-view></router-view>
+          </div>
         </el-main>
       </div>
     </el-container>
@@ -92,26 +33,20 @@
 </template>
 
 <script>
-// import { menu } from "@/common/menus.js";
 import selfApi from "@/api/selfApi";
+import menus from "@/components/menu/menu";
 export default {
   data() {
     return {
-      userInfo: {},
-      menu: [],
       isCollapse: false,
-      defaultActive: "",
-      userImg: ""
+      userInfo: {},
+      userImg: "",
     };
   },
+  components: {
+    menus,
+  },
   mounted() {
-    let menu = JSON.parse(localStorage.getItem("menuTree"));
-    console.log(menu, 8989);
-    this.menu = menu;
-    let url = window.location.href;
-    let routeUrl = url.split("/#")[1];
-    // console.log(routeUrl);
-    this.defaultActive = routeUrl;
     let user = localStorage.getItem("userInfo");
     this.userInfo = JSON.parse(user);
     this.userObjDetail();
@@ -121,7 +56,7 @@ export default {
       this.$confirm("确认退出, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           window.localStorage.clear("token");
@@ -141,47 +76,47 @@ export default {
     },
     userObjDetail() {
       let data = {
-        company_id: JSON.parse(localStorage.getItem("userInfo")).company_id
+        company_id: JSON.parse(localStorage.getItem("userInfo")).company_id,
       };
-      selfApi.userDetail(data).then(res => {
+      selfApi.userDetail(data).then((res) => {
         if (res.data.code == 0) {
           this.userImg = res.data.data.data.picture;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="less" scoped>
-.transitionRouter-enter-active,
-.transitionRouter-leave-active {
-  transition: all 0.4s;
-}
-.transitionRouter-enter,
-.transitionRouter-leave {
-  transform: translate3d(100%, 0, 0);
-}
-.router-view {
-  height: 100%;
-}
 .content-box {
+  display: flex;
   box-sizing: border-box;
-}
-.frontMenu {
-  height: 100%;
-  text-align: left;
-}
-.header {
+  background: #f0f2f5;
   width: 100%;
-  height: 48px;
+  .content-right {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+.content {
+  background: #fff;
+  height: calc(100vh - 100px);
+  width: 100%;
+  // padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.headers {
+  width: 100%;
+  height: 60px;
   background: #fff;
   .top {
-    height: 48px;
+    height: 60px;
     width: 100%;
     display: flex;
     background: #ffffff;
-    width: 100%;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 1px 4px 0px rgba(0, 21, 41, 0.12);
@@ -194,6 +129,7 @@ export default {
     }
     .top-right {
       display: flex;
+      align-items: center;
       .data {
         cursor: pointer;
         font-size: 14px;
@@ -229,51 +165,14 @@ export default {
       }
     }
   }
-  .bottom {
-    height: 52px;
-    line-height: 52px;
-    padding-left: 24px;
-    font-size: 16px;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    color: #000000;
-    text-align: left;
-  }
 }
 
-.content-box {
-  display: flex;
-  width: 100% !important;
-  background: #f0f2f5;
-  .content-right {
-    width: 100%;
-  }
-}
 .active {
   transform: rotate(180deg);
   transition: 0.6s;
 }
-
 .active1 {
   transform: rotate(360deg);
   transition: 0.6s;
-}
-
-.el-menu-item.is-active {
-  background: rgb(3, 60, 114) !important;
-}
-.el-menu-item:hover {
-  background: rgb(3, 60, 114) !important;
-}
-.el-submenu__title:hover {
-  background: rgb(3, 60, 114) !important;
-}
-.el-submenu__title.is-active {
-  background: rgb(3, 60, 114) !important;
-}
-</style>
-<style scoped>
-.content-box >>> .el-main {
-  width: 99.6% !important;
 }
 </style>

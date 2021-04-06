@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="">
     <!-- tab -->
     <el-tabs v-model="activeParams" @tab-click="tabClick">
       <el-tab-pane label="草稿" name="0"></el-tab-pane>
@@ -161,7 +161,7 @@
             type="text"
             v-if="
               isButton0 &&
-                (role_type == '1' || role_type == '2' || role_type == '3')
+              (role_type == '1' || role_type == '2' || role_type == '3')
             "
             @click="lookClick(scope.row)"
             >查看</el-button
@@ -181,7 +181,7 @@
           <el-button
             type="text"
             v-if="isButton3 && role_type == '1'"
-            style="color:red;"
+            style="color: red"
             @click="deleteClick(scope.row)"
             >删除</el-button
           >
@@ -283,9 +283,7 @@
             :src="i"
             :preview-src-list="imgList"
           >
-            <div slot="error" style="line-height:100px">
-              暂无图片
-            </div>
+            <div slot="error" style="line-height: 100px">暂无图片</div>
           </el-image>
         </el-col>
       </el-row>
@@ -309,7 +307,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.old_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.old_content.split(',')"
@@ -329,7 +327,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.new_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.new_content.split(',')"
@@ -363,9 +361,7 @@
         :src="i"
         :preview-src-list="imgList"
       >
-        <div slot="error" style="line-height:100px">
-          暂无图片
-        </div>
+        <div slot="error" style="line-height: 100px">暂无图片</div>
       </el-image>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="imgDialogVisible = false"
@@ -394,7 +390,7 @@ import upload from "@/components/upload";
 import selfApi from "@/api/selfApi";
 export default {
   components: {
-    upload
+    upload,
   },
   data() {
     return {
@@ -414,7 +410,7 @@ export default {
             "59"
           ).getTime(); // 毫秒
           return time.getTime() > todayTime;
-        }
+        },
       },
       files: "",
       rules: {
@@ -426,30 +422,30 @@ export default {
           {
             required: true,
             message: "请填写年龄",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         service_area: [
-          { required: true, message: "请选择服务区域", trigger: "blur" }
-        ]
+          { required: true, message: "请选择服务区域", trigger: "blur" },
+        ],
       },
       selectList: [
         {
           job: "职工",
-          label: "职工"
+          label: "职工",
         },
         {
           job: "组长",
-          label: "组长"
+          label: "组长",
         },
         {
           job: "部长",
-          label: "部长"
+          label: "部长",
         },
         {
           job: "经理",
-          label: "经理"
-        }
+          label: "经理",
+        },
       ],
       //服务区域列表
       serviceList: [],
@@ -467,13 +463,13 @@ export default {
                 1
             )
           );
-        }
+        },
       },
       pickerOptions0: {
         disabledDate(time) {
           return time.getTime() < Date.now() - 8.64e7; //禁用以前的日期，今天不禁用
           // return date.getTime() <= Date.now();    //禁用今天以及以前的日期
-        }
+        },
       },
       ruleForm: {},
       tableData: [],
@@ -481,14 +477,14 @@ export default {
         name: "",
         job: "",
         operater: "",
-        phone: ""
+        phone: "",
       },
       date1: [],
       date2: [],
       date3: [],
       pageData: {
         page: 1,
-        page_size: 10
+        page_size: 10,
       },
       total: 0,
       activeParams: "0",
@@ -500,7 +496,7 @@ export default {
       lookObj: {},
       recordList: [], //修改记录
       oldruleForm: {},
-      imgList: []
+      imgList: [],
     };
   },
   methods: {
@@ -509,7 +505,7 @@ export default {
       let formData = new FormData();
       formData.append("file", item.file);
       formData.append("company_id", this.company_id);
-      selfApi.importStaff(formData).then(res => {
+      selfApi.importStaff(formData).then((res) => {
         if (res.data.code == 200) {
           this.$message.success(res.data.msg);
           this.personList();
@@ -525,7 +521,7 @@ export default {
       this.$confirm("本次共导出" + this.total + "条数据是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let para = {
@@ -539,20 +535,22 @@ export default {
             start_submit_time: this.date2[0],
             end_submit_time: this.date2[1],
             status: this.activeParams,
-            ...this.searchData
+            ...this.searchData,
           };
           let api = "personData";
+          let excellType = "personnelData";
           let data = {
             data: para,
             api,
-            total: this.total
+            excellType,
+            total: this.total,
           };
           this.$refs["export"].exportlist(data);
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消导出"
+            message: "已取消导出",
           });
         });
     },
@@ -612,15 +610,15 @@ export default {
       this.$confirm("确认提交, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let data = {
             status: 1,
             worker_id: row.worker_id,
-            company_id: this.company_id
+            company_id: this.company_id,
           };
-          selfApi.submitPerson(row.id, data).then(res => {
+          selfApi.submitPerson(row.id, data).then((res) => {
             if (res.data.code == 0) {
               this.$message.success("提交成功!");
               this.personList();
@@ -635,7 +633,7 @@ export default {
     },
     //新增 编辑
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!this.ruleForm.job_picture) {
           this.$message.warning("请上传合同照片");
           return;
@@ -645,7 +643,7 @@ export default {
             console.log(this.ruleForm, 11);
             let objData = {
               status: this.ruleForm.status,
-              worker_id: this.ruleForm.worker_id
+              worker_id: this.ruleForm.worker_id,
             };
             for (let item in this.ruleForm) {
               for (let obj in this.oldruleForm) {
@@ -658,7 +656,7 @@ export default {
                 }
               }
             }
-            selfApi.redactPerson(this.ruleForm.id, objData).then(res => {
+            selfApi.redactPerson(this.ruleForm.id, objData).then((res) => {
               if (res.data.code == 0) {
                 this.$message.success("编辑成功!");
                 this.personList();
@@ -668,7 +666,7 @@ export default {
               }
             });
           } else {
-            selfApi.addPerson(this.ruleForm).then(res => {
+            selfApi.addPerson(this.ruleForm).then((res) => {
               if (res.data.code == 0) {
                 this.$message.success("新增成功!");
                 this.personList();
@@ -709,15 +707,15 @@ export default {
       console.log(row);
       let data = {
         status: row.status,
-        worker_id: row.worker_id
+        worker_id: row.worker_id,
       };
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
-          selfApi.delPerson(row.id, data).then(res => {
+          selfApi.delPerson(row.id, data).then((res) => {
             this.$message.success("删除成功!");
             this.personList();
           });
@@ -734,9 +732,9 @@ export default {
       //修改记录
       let data = {
         status: row.status,
-        worker_id: row.worker_id
+        worker_id: row.worker_id,
       };
-      selfApi.recordPerson(data).then(res => {
+      selfApi.recordPerson(data).then((res) => {
         if (res.data.code == 0) {
           this.recordList = res.data.data;
         }
@@ -787,9 +785,9 @@ export default {
         start_submit_time: this.date2[0],
         end_submit_time: this.date2[1],
         status: this.activeParams,
-        ...this.searchData
+        ...this.searchData,
       };
-      selfApi.personData(params).then(res => {
+      selfApi.personData(params).then((res) => {
         if (res.data.code == 200) {
           this.tableData = res.data.data.data.results;
           this.total = res.data.data.data.count;
@@ -800,15 +798,15 @@ export default {
     //获取服务区域
     serviceData() {
       let data = {
-        company_id: this.company_id
+        company_id: this.company_id,
       };
-      selfApi.quCheZizhiData(data).then(res => {
+      selfApi.quCheZizhiData(data).then((res) => {
         if (res.data.code == 0) {
           console.log(res);
           this.serviceList = res.data.data.data;
         }
       });
-    }
+    },
   },
   mounted() {
     //获取公司id
@@ -819,7 +817,7 @@ export default {
     this.role_type = user.role_type;
     this.serviceData();
     this.personList();
-  }
+  },
 };
 </script>
 

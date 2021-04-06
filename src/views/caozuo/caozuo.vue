@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="">
     <el-tabs>
       <el-tab-pane label="操作日志"></el-tab-pane>
     </el-tabs>

@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="">
     <!-- tab -->
     <el-tabs v-model="activeParams" @tab-click="tabClick">
       <el-tab-pane label="草稿" name="0"></el-tab-pane>
@@ -86,7 +86,7 @@
       stripe
       border
       height="60vh"
-      style="width: 100%;margin-top:13px;"
+      style="width: 100%; margin-top: 13px"
     >
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column
@@ -128,7 +128,7 @@
             type="text"
             v-if="
               isButton0 &&
-                (role_type == '1' || role_type == '2' || role_type == '3')
+              (role_type == '1' || role_type == '2' || role_type == '3')
             "
             @click="lookClick(scope.row)"
             >查看</el-button
@@ -148,7 +148,7 @@
           <el-button
             type="text"
             v-if="isButton3 && role_type == '1'"
-            style="color:red;"
+            style="color: red"
             @click="deleteClick(scope.row)"
             >删除</el-button
           >
@@ -330,7 +330,7 @@
                   <el-input
                     v-model="ruleForm.car_size_length"
                     placeholder="长"
-                    style="width:100px"
+                    style="width: 100px"
                     ><template slot="append">米</template></el-input
                   >
                 </el-form-item>
@@ -340,7 +340,7 @@
                   <el-input
                     v-model="ruleForm.car_size_width"
                     placeholder="宽"
-                    style="width:100px"
+                    style="width: 100px"
                     ><template slot="append">米</template></el-input
                   >
                 </el-form-item>
@@ -841,9 +841,7 @@
               :src="i"
               :preview-src-list="cartList"
             >
-              <div slot="error" style="line-height:100px">
-                暂无图片
-              </div>
+              <div slot="error" style="line-height: 100px">暂无图片</div>
             </el-image>
           </el-col>
         </el-row>
@@ -868,7 +866,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.old_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.old_content.split(',')"
@@ -888,7 +886,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.new_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.new_content.split(',')"
@@ -929,9 +927,7 @@
           :src="i"
           :preview-src-list="cartList"
         >
-          <div slot="error" style="line-height:100px">
-            暂无图片
-          </div>
+          <div slot="error" style="line-height: 100px">暂无图片</div>
         </el-image>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -962,7 +958,7 @@ import upload from "@/components/upload";
 import selfApi from "@/api/selfApi";
 export default {
   components: {
-    upload
+    upload,
   },
   data() {
     return {
@@ -983,84 +979,88 @@ export default {
             "59"
           ).getTime(); // 毫秒
           return time.getTime() > todayTime;
-        }
+        },
       },
       rules: {
         car_color: [
-          { required: true, message: "请选择车辆颜色", trigger: "change" }
+          { required: true, message: "请选择车辆颜色", trigger: "change" },
         ],
         car_num: [{ required: true, message: "请填车牌号", trigger: "blur" }],
         transport_type: [
-          { required: true, message: "请选择收运类型", trigger: "change" }
+          { required: true, message: "请选择收运类型", trigger: "change" },
         ],
         car_type_id: [
-          { required: true, message: "请选择车辆类型", trigger: "change" }
+          { required: true, message: "请选择车辆类型", trigger: "change" },
         ],
         // facility_num: [
         //   { required: true, message: "请选择填写资产编号", trigger: "change" }
         // ],
         power_type: [
-          { required: true, message: "请选择车辆动力类型", trigger: "change" }
+          { required: true, message: "请选择车辆动力类型", trigger: "change" },
         ],
         oil_type: [
-          { required: true, message: "请选择燃油类型", trigger: "change" }
+          { required: true, message: "请选择燃油类型", trigger: "change" },
         ],
         car_emission_grade: [
-          { required: true, message: "请选择尾气排放标准", trigger: "change" }
+          { required: true, message: "请选择尾气排放标准", trigger: "change" },
         ],
         car_weight: [
-          { required: true, message: "请选择填写整车重量", trigger: "blur" }
+          { required: true, message: "请选择填写整车重量", trigger: "blur" },
         ],
         carry_person_num: [
-          { required: true, message: "请选择填写核载人数", trigger: "blur" }
+          { required: true, message: "请选择填写核载人数", trigger: "blur" },
         ],
         carry_weight: [
-          { required: true, message: "请选择填写核载重量", trigger: "blur" }
+          { required: true, message: "请选择填写核载重量", trigger: "blur" },
         ],
         total_weight: [
-          { required: true, message: "请选择填写总质量", trigger: "blur" }
+          { required: true, message: "请选择填写总质量", trigger: "blur" },
         ],
         car_size_length: [
-          { required: true, message: "请选择填写车辆长度", trigger: "blur" }
+          { required: true, message: "请选择填写车辆长度", trigger: "blur" },
         ],
         car_size_width: [
-          { required: true, message: "请选择填写车辆宽度", trigger: "blur" }
+          { required: true, message: "请选择填写车辆宽度", trigger: "blur" },
         ],
         new_date: [
-          { required: true, message: "请选择生产日期", trigger: "blur" }
+          { required: true, message: "请选择生产日期", trigger: "blur" },
         ],
         // facility_status: [
         //   { required: true, message: "请选择指标状况", trigger: "change" }
         // ],
         del_date: [
-          { required: true, message: "请选择报废日期", trigger: "blur" }
+          { required: true, message: "请选择报废日期", trigger: "blur" },
         ],
         reg_date: [
-          { required: true, message: "请选择登记日期", trigger: "blur" }
+          { required: true, message: "请选择登记日期", trigger: "blur" },
         ],
         // cost: [
         //   { required: true, message: "请选择填写购置费用", trigger: "blur" }
         // ],
         receive_date: [
-          { required: true, message: "请选择接管日期", trigger: "blur" }
+          { required: true, message: "请选择接管日期", trigger: "blur" },
         ],
         brand: [
-          { required: true, message: "请选择填品牌型号", trigger: "blur" }
+          { required: true, message: "请选择填品牌型号", trigger: "blur" },
         ],
         run_year: [
-          { required: true, message: "请选择填写运营年限", trigger: "blur" }
+          { required: true, message: "请选择填写运营年限", trigger: "blur" },
         ],
         mo_plant1: [
-          { required: true, message: "请选择末端设施1", trigger: "change" }
+          { required: true, message: "请选择末端设施1", trigger: "change" },
         ],
         is_runing: [
-          { required: true, message: "请选择是否有能力作业", trigger: "change" }
+          {
+            required: true,
+            message: "请选择是否有能力作业",
+            trigger: "change",
+          },
         ],
         // mo_plant2: [
         //   { required: true, message: "请选择绑定处理厂2", trigger: "change" }
         // ],
         contacts: [
-          { required: true, message: "请填写联系人", trigger: "blur" }
+          { required: true, message: "请填写联系人", trigger: "blur" },
         ],
         // zhong_plant1: [
         //   { required: true, message: "请选择绑定处理厂3", trigger: "change" }
@@ -1078,43 +1078,43 @@ export default {
               } else {
                 return Number(value);
               }
-            }
-          }
+            },
+          },
         ],
         // zhong_plant2: [
         //   { required: true, message: "请选择绑定处理厂4", trigger: "change" }
         // ],
         operate_unit: [
-          { required: true, message: "请填写运营单位", trigger: "blur" }
+          { required: true, message: "请填写运营单位", trigger: "blur" },
         ],
         // plant5: [
         //   { required: true, message: "请选择绑定处理厂5", trigger: "change" }
         // ],
         manage_unit: [
-          { required: true, message: "请填写管理单位", trigger: "blur" }
+          { required: true, message: "请填写管理单位", trigger: "blur" },
         ],
         is_gps: [
-          { required: true, message: "请选择是否安装gps", trigger: "change" }
+          { required: true, message: "请选择是否安装gps", trigger: "change" },
         ],
         is_weight: [
           {
             required: true,
             message: "请选择是否安装计量称重设备",
-            trigger: "change"
-          }
+            trigger: "change",
+          },
         ],
         service_area: [
-          { required: true, message: "请选择服务区域", trigger: "change" }
+          { required: true, message: "请选择服务区域", trigger: "change" },
         ],
         street_coding: [
-          { required: true, message: "请选择街道", trigger: "change" }
+          { required: true, message: "请选择街道", trigger: "change" },
         ],
         is_self: [
-          { required: true, message: "请选择是否涂装", trigger: "change" }
+          { required: true, message: "请选择是否涂装", trigger: "change" },
         ],
         property_unit: [
-          { required: true, message: "请填写产权单位", trigger: "blur" }
-        ]
+          { required: true, message: "请填写产权单位", trigger: "blur" },
+        ],
         // picture_before: [
         //   { required: true, message: "请选上传车身前照", trigger: "blur" }
         // ]
@@ -1123,176 +1123,176 @@ export default {
       colorList: [
         {
           car_color: "红",
-          label: "红"
+          label: "红",
         },
         {
           car_color: "黄",
-          label: "黄"
+          label: "黄",
         },
         {
           car_color: "蓝",
-          label: "蓝"
+          label: "蓝",
         },
         {
           car_color: "绿",
-          label: "绿"
+          label: "绿",
         },
         {
           car_color: "白",
-          label: "白"
+          label: "白",
         },
         {
           car_color: "橙",
-          label: "橙"
-        }
+          label: "橙",
+        },
       ],
       //收运类型
       shouyunList: [
         {
           value: "1",
-          label: "收集 "
+          label: "收集 ",
         },
         {
           value: "2",
-          label: "直运"
+          label: "直运",
         },
         {
           value: "3",
-          label: "转运"
+          label: "转运",
         },
         {
           value: "4",
-          label: "清运"
+          label: "清运",
         },
         {
           value: "5",
-          label: "直收直运"
-        }
+          label: "直收直运",
+        },
       ],
       //车辆类型
       cheList: [
         {
           value: "54ca8f16bff811eaa8a9000c29d3cc31",
-          label: "密闭式压缩车 "
+          label: "密闭式压缩车 ",
         },
         {
           value: "a80ae89cc0de11eaa8a9000c29d3cc31",
-          label: "厨余垃圾车"
+          label: "厨余垃圾车",
         },
         {
           value: "a826fa5ac0de11eaa8a9000c29d3cc31",
-          label: "其他垃圾车"
+          label: "其他垃圾车",
         },
         {
           value: "a838398cc0de11eaa8a9000c29d3cc31",
-          label: "转运车"
+          label: "转运车",
         },
         {
           value: "a84386fcc0de11eaa8a9000c29d3cc31",
-          label: "粪便运输车"
+          label: "粪便运输车",
         },
         {
           value: "a84c546cc0de11eaa8a9000c29d3cc31",
-          label: "水罐车"
+          label: "水罐车",
         },
         {
           value: "bebab964ca3411eab56c485f99c1b734",
-          label: "单臂吊车"
+          label: "单臂吊车",
         },
         {
           value: "01738800ca3511eaafc6485f99c1b734",
-          label: "餐厨垃圾车"
-        }
+          label: "餐厨垃圾车",
+        },
       ],
       //车辆动力类型
       dongliList: [
         {
           value: "1",
-          label: "燃油"
+          label: "燃油",
         },
         {
           value: "2",
-          label: "混动"
+          label: "混动",
         },
         {
           value: "3",
-          label: "新能源"
-        }
+          label: "新能源",
+        },
       ],
       //燃油类型
       ranyouList: [
         {
           value: "1",
-          label: "汽油"
+          label: "汽油",
         },
         {
           value: "2",
-          label: "柴油"
+          label: "柴油",
         },
         {
           value: "无",
-          label: "无"
-        }
+          label: "无",
+        },
       ],
       //尾气排放标准
       weiqiList: [
         {
           value: "1",
-          label: "国I"
+          label: "国I",
         },
         {
           value: "2",
-          label: "国II"
+          label: "国II",
         },
         {
           value: "3",
-          label: "国III"
+          label: "国III",
         },
         {
           value: "4",
-          label: "国IV"
+          label: "国IV",
         },
         {
           value: "5",
-          label: "国V"
+          label: "国V",
         },
         {
           value: "6",
-          label: "国Vl"
-        }
+          label: "国Vl",
+        },
       ],
       //指标状况
       zhibiaoList: [
         {
           value: "1",
-          label: "审核中"
+          label: "审核中",
         },
         {
           value: "2",
-          label: "审核通过"
-        }
+          label: "审核通过",
+        },
       ],
       //是否安装gps 是否按照称重计量设备
       gpsList: [
         {
           value: "0",
-          label: "否"
+          label: "否",
         },
         {
           value: "1",
-          label: "是"
-        }
+          label: "是",
+        },
       ],
       //是否又能力作业 是否涂装
       zuoyeList: [
         {
           value: "0",
-          label: "否"
+          label: "否",
         },
         {
           value: "1",
-          label: "是"
-        }
+          label: "是",
+        },
       ],
       //服务区域列表
       serviceList: [],
@@ -1313,13 +1313,13 @@ export default {
                 1
             )
           );
-        }
+        },
       },
       pickerOptions0: {
         disabledDate(time) {
           return time.getTime() < Date.now() - 8.64e7; //禁用以前的日期，今天不禁用
           // return date.getTime() <= Date.now();    //禁用今天以及以前的日期
-        }
+        },
       },
       ruleForm: {},
       tableData: [],
@@ -1327,13 +1327,13 @@ export default {
       searchData: {
         car_num: "",
         service_area: "",
-        car_type_id: ""
+        car_type_id: "",
       },
       date1: [],
       dates: [],
       pageData: {
         page: 1,
-        page_size: 10
+        page_size: 10,
       },
       total: 0,
       activeParams: "0",
@@ -1346,7 +1346,7 @@ export default {
       detailObj: {},
       cartList: [],
       recordList: [], //修改记录
-      oldruleForm: {}
+      oldruleForm: {},
     };
   },
   methods: {
@@ -1355,7 +1355,7 @@ export default {
       let formData = new FormData();
       formData.append("file", item.file);
       formData.append("company_id", this.company_id);
-      selfApi.importCart(formData).then(res => {
+      selfApi.importCart(formData).then((res) => {
         if (res.data.code == 200) {
           this.$message.success(res.data.msg);
           this.carData();
@@ -1371,7 +1371,7 @@ export default {
       this.$confirm("本次共导出" + this.total + "条数据是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let para = {
@@ -1383,20 +1383,22 @@ export default {
             start_submit_time: this.dates[0],
             end_submit_time: this.dates[1],
             ...this.searchData,
-            status: this.activeParams
+            status: this.activeParams,
           };
           let api = "carList";
+          let excellType = "carData";
           let data = {
             data: para,
             api,
-            total: this.total
+            excellType,
+            total: this.total,
           };
           this.$refs["export"].exportlist(data);
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消导出"
+            message: "已取消导出",
           });
         });
     },
@@ -1430,7 +1432,7 @@ export default {
       this.cartList = [
         ...(row.picture_before || "").split(","),
         ...(row.picture_left || "").split(","),
-        ...(row.picture_right || "").split(",")
+        ...(row.picture_right || "").split(","),
       ];
     },
     //监听弹框关闭清除车身照片数组
@@ -1485,15 +1487,15 @@ export default {
       this.$confirm("确认提交, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let data = {
             status: 1,
             car_id: row.car_id,
-            company_id: this.company_id
+            company_id: this.company_id,
           };
-          selfApi.submitCar(row.id, data).then(res => {
+          selfApi.submitCar(row.id, data).then((res) => {
             this.$message.success("提交成功!");
             this.carData();
           });
@@ -1532,13 +1534,13 @@ export default {
     //新增
     addCar() {
       let data = {
-        ...this.ruleForm
+        ...this.ruleForm,
       };
       let nameArr = [];
       let codingArr = [];
-      this.ruleForm.street_coding.forEach(element => {
+      this.ruleForm.street_coding.forEach((element) => {
         console.log(element);
-        let obj = this.streetList.find(item => {
+        let obj = this.streetList.find((item) => {
           console.log(item, 1);
           return item.coding === element;
         });
@@ -1547,7 +1549,7 @@ export default {
       });
       data.street_name = nameArr.join(",");
       data.street_coding = codingArr.join(",");
-      selfApi.addCar(data).then(res => {
+      selfApi.addCar(data).then((res) => {
         if (res.data.code == 0) {
           this.$message.success("新增成功!");
           this.dialogVisible1 = false;
@@ -1561,7 +1563,7 @@ export default {
     compileCar() {
       let objData = {
         status: this.ruleForm.status,
-        car_id: this.ruleForm.car_id
+        car_id: this.ruleForm.car_id,
       };
       for (let item in this.ruleForm) {
         for (let obj in this.oldruleForm) {
@@ -1572,8 +1574,8 @@ export default {
       }
       if (objData.street_coding) {
         let nameArr = [];
-        objData.street_coding.forEach(element => {
-          let obj = this.streetList.find(item => {
+        objData.street_coding.forEach((element) => {
+          let obj = this.streetList.find((item) => {
             return item.coding === element;
           });
           nameArr.push(obj.name);
@@ -1582,7 +1584,7 @@ export default {
       }
       objData.street_coding = this.ruleForm.street_coding.join(",");
       console.log(objData);
-      selfApi.updataCar(this.ruleForm.id, objData).then(res => {
+      selfApi.updataCar(this.ruleForm.id, objData).then((res) => {
         if (res.data.code == 0) {
           this.$message.success("编辑成功!");
           this.carData();
@@ -1626,16 +1628,16 @@ export default {
     deleteClick(row) {
       let data = {
         status: row.status,
-        car_id: row.car_id
+        car_id: row.car_id,
       };
       console.log(row);
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
-          selfApi.delCar(row.id, data).then(res => {
+          selfApi.delCar(row.id, data).then((res) => {
             this.$message.success("删除成功!");
             this.carData();
           });
@@ -1652,14 +1654,14 @@ export default {
       this.cartList = [
         ...(row.picture_before || "").split(","),
         ...(row.picture_left || "").split(","),
-        ...(row.picture_right || "").split(",")
+        ...(row.picture_right || "").split(","),
       ];
       //修改记录
       let data = {
         status: row.status,
-        car_id: row.car_id
+        car_id: row.car_id,
       };
-      selfApi.amendRecordCar(data).then(res => {
+      selfApi.amendRecordCar(data).then((res) => {
         // console.log(res);
         if (res.data.code == 0) {
           this.recordList = res.data.data;
@@ -1705,9 +1707,9 @@ export default {
         start_submit_time: this.dates[0],
         end_submit_time: this.dates[1],
         ...this.searchData,
-        status: this.activeParams
+        status: this.activeParams,
       };
-      selfApi.carList(params).then(res => {
+      selfApi.carList(params).then((res) => {
         if (res.data.code == 200) {
           this.tableData = res.data.data.data.results;
           this.total = res.data.data.data.count;
@@ -1718,9 +1720,9 @@ export default {
     //区change 获取街道
     quChange(e) {
       let data = {
-        area_coding: e
+        area_coding: e,
       };
-      selfApi.street_list(data).then(res => {
+      selfApi.street_list(data).then((res) => {
         if (res.data.code == 0) {
           this.streetList = res.data.data.data;
         }
@@ -1729,9 +1731,9 @@ export default {
     //获取区
     serviceData() {
       let data = {
-        company_id: this.company_id
+        company_id: this.company_id,
       };
-      selfApi.quCheZizhiData(data).then(res => {
+      selfApi.quCheZizhiData(data).then((res) => {
         if (res.data.code == 0) {
           this.serviceList = res.data.data.data;
         }
@@ -1741,15 +1743,15 @@ export default {
     //获取末端厂
     muduanData() {
       let data = {
-        company_id: JSON.parse(localStorage.getItem("userInfo")).company_id
+        company_id: JSON.parse(localStorage.getItem("userInfo")).company_id,
       };
-      selfApi.moduanList(data).then(res => {
+      selfApi.moduanList(data).then((res) => {
         console.log(res);
         if (res.data.code == 0) {
           this.moduanList = res.data.data.data;
         }
       });
-    }
+    },
   },
   mounted() {
     let userInfo = localStorage.getItem("userInfo");
@@ -1760,7 +1762,9 @@ export default {
     this.muduanData();
     this.serviceData();
     this.carData();
-  }
+    //解决select属性multiple页面初始化多选触发的校验 this.ruleForm为页面属性接收值 street_coding为下拉框v-model对应的值
+    this.$set(this.ruleForm, "street_coding", []);
+  },
 };
 </script>
 

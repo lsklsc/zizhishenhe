@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="">
     <!-- tab -->
     <el-tabs v-model="activeParams" @tab-click="tabClick">
       <el-tab-pane label="草稿" name="0"></el-tab-pane>
@@ -185,7 +185,7 @@
             type="text"
             v-if="
               isButton0 &&
-                (role_type == '1' || role_type == '2' || role_type == '3')
+              (role_type == '1' || role_type == '2' || role_type == '3')
             "
             @click="lookClick(scope.row)"
             >查看</el-button
@@ -205,7 +205,7 @@
           <el-button
             type="text"
             v-if="isButton3 && role_type == '1'"
-            style="color:red;"
+            style="color: red"
             @click="deleteClick(scope.row)"
             >删除</el-button
           >
@@ -367,9 +367,7 @@
             :src="i"
             :preview-src-list="hetongList"
           >
-            <div slot="error" style="line-height:100px">
-              暂无图片
-            </div>
+            <div slot="error" style="line-height: 100px">暂无图片</div>
           </el-image>
         </el-col>
         <el-col :span="12">
@@ -381,9 +379,7 @@
             :src="i"
             :preview-src-list="zizhiList"
           >
-            <div slot="error" style="line-height:100px">
-              暂无图片
-            </div>
+            <div slot="error" style="line-height: 100px">暂无图片</div>
           </el-image>
         </el-col>
       </el-row>
@@ -407,7 +403,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.old_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.old_content.split(',')"
@@ -427,7 +423,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.new_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.new_content.split(',')"
@@ -465,9 +461,7 @@
         :src="i"
         :preview-src-list="hetongList"
       >
-        <div slot="error" style="line-height:100px">
-          暂无图片
-        </div>
+        <div slot="error" style="line-height: 100px">暂无图片</div>
       </el-image>
       <div class="imgTitle">资质照片：</div>
       <el-image
@@ -477,9 +471,7 @@
         :src="i"
         :preview-src-list="zizhiList"
       >
-        <div slot="error" style="line-height:100px">
-          暂无图片
-        </div>
+        <div slot="error" style="line-height: 100px">暂无图片</div>
       </el-image>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="imgDialogVisible = false"
@@ -508,7 +500,7 @@ import upload from "@/components/upload";
 import selfApi from "@/api/selfApi";
 export default {
   components: {
-    upload
+    upload,
   },
   data() {
     return {
@@ -528,23 +520,23 @@ export default {
             "59"
           ).getTime(); // 毫秒
           return time.getTime() > todayTime;
-        }
+        },
       },
       contractList: [
         {
           con_type: "1",
-          label: "收运合同"
+          label: "收运合同",
         },
         {
           con_type: "2",
-          label: "运输合同"
-        }
+          label: "运输合同",
+        },
       ],
       jiaTypeList: [
         {
           jia_type: "1",
-          label: "街道"
-        }
+          label: "街道",
+        },
         // {
         //   jia_type: "2",
         //   label: "末端厂",
@@ -567,19 +559,19 @@ export default {
                 1
             )
           );
-        }
+        },
       },
       pickerOptions0: {
         disabledDate(time) {
           return time.getTime() < Date.now() - 8.64e7; //禁用以前的日期，今天不禁用
           // return date.getTime() <= Date.now();    //禁用今天以及以前的日期
-        }
+        },
       },
       ruleForm: {},
       tableData: [],
       searchData: {
         name: "",
-        jia_type: ""
+        jia_type: "",
       },
       dates1: [],
       dates2: "",
@@ -588,7 +580,7 @@ export default {
       datetime: [],
       pageData: {
         page: 1,
-        page_size: 10
+        page_size: 10,
       },
       total: 0,
       activeParams: "0",
@@ -603,27 +595,27 @@ export default {
         yi: [{ required: true, message: "请输入乙方", trigger: "blur" }],
         content: [{ required: true, message: "请填写备注", trigger: "blur" }],
         con_type: [
-          { required: true, message: "请选择合同类型", trigger: "change" }
+          { required: true, message: "请选择合同类型", trigger: "change" },
         ],
         street_coding: [
-          { required: true, message: "请选择甲方", trigger: "change" }
+          { required: true, message: "请选择甲方", trigger: "change" },
         ],
         jia_type: [
-          { required: true, message: "请选择甲方类型", trigger: "change" }
+          { required: true, message: "请选择甲方类型", trigger: "change" },
         ],
         jia: [{ required: true, message: "请选择甲方", trigger: "change" }],
         signed_time: [
-          { required: true, message: "请选择签订时间", trigger: "blur" }
+          { required: true, message: "请选择签订时间", trigger: "blur" },
         ],
         viald_time: [
-          { required: true, message: "请选择合同有效期", trigger: "blur" }
-        ]
+          { required: true, message: "请选择合同有效期", trigger: "blur" },
+        ],
       },
       lookObj: {},
       recordList: [], //修改记录
       oldruleForm: {},
       hetongList: [],
-      zizhiListSelect: []
+      zizhiListSelect: [],
     };
   },
   methods: {
@@ -632,7 +624,7 @@ export default {
       let formData = new FormData();
       formData.append("file", item.file);
       formData.append("company_id", this.company_id);
-      selfApi.importContract(formData).then(res => {
+      selfApi.importContract(formData).then((res) => {
         if (res.data.code == 200) {
           this.$message.success(res.data.msg);
           this.contractData();
@@ -648,7 +640,7 @@ export default {
       this.$confirm("本次共导出" + this.total + "条数据是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let para = {
@@ -666,20 +658,22 @@ export default {
             start_enter_time: this.datetime[0],
             end_enter_time: this.datetime[1],
             ...this.searchData,
-            status: this.activeParams
+            status: this.activeParams,
           };
           let api = "contractList";
+          let excellType = "contractData";
           let data = {
             data: para,
             api,
-            total: this.total
+            excellType,
+            total: this.total,
           };
           this.$refs["export"].exportlist(data);
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消导出"
+            message: "已取消导出",
           });
         });
     },
@@ -746,15 +740,15 @@ export default {
       this.$confirm("确认提交, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let data = {
             status: 1,
             contract_id: row.contract_id,
-            company_id: this.company_id
+            company_id: this.company_id,
           };
-          selfApi.submitContract(row.id, data).then(res => {
+          selfApi.submitContract(row.id, data).then((res) => {
             if (res.data.code == 0) {
               this.$message.success("提交成功!");
               this.contractData();
@@ -769,7 +763,7 @@ export default {
     },
     //新增 编辑
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!this.ruleForm.contract_picture) {
           this.$message.warning("请上传合同照片");
           return;
@@ -783,7 +777,7 @@ export default {
           if (this.ruleForm.id) {
             let objData = {
               status: this.ruleForm.status,
-              contract_id: this.ruleForm.contract_id
+              contract_id: this.ruleForm.contract_id,
             };
             for (let item in this.ruleForm) {
               for (let obj in this.oldruleForm) {
@@ -797,7 +791,7 @@ export default {
               }
             }
             objData.viald_time = JSON.stringify(objData.viald_time);
-            selfApi.updataContract(this.ruleForm.id, objData).then(res => {
+            selfApi.updataContract(this.ruleForm.id, objData).then((res) => {
               if (res.data.code == 0) {
                 this.$message.success("编辑成功!");
                 this.contractData();
@@ -809,10 +803,10 @@ export default {
           } else {
             // 新增
             let para = {
-              ...this.ruleForm
+              ...this.ruleForm,
             };
             para.viald_time = JSON.stringify(para.viald_time);
-            selfApi.addContract(para).then(res => {
+            selfApi.addContract(para).then((res) => {
               if (res.data.code == 0) {
                 this.$message.success("新增成功!");
                 this.contractData();
@@ -833,7 +827,7 @@ export default {
       this.$refs.upload1.clearFiles();
       this.$refs.upload2.clearFiles();
       this.ruleForm = {
-        jia: ""
+        jia: "",
       };
       this.ruleForm.company_id = this.company_id;
     },
@@ -856,15 +850,15 @@ export default {
     deleteClick(row) {
       let data = {
         status: row.status,
-        contract_id: row.contract_id
+        contract_id: row.contract_id,
       };
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
-          selfApi.deleteContract(row.id, data).then(res => {
+          selfApi.deleteContract(row.id, data).then((res) => {
             this.$message.success("删除成功!");
             this.contractData();
           });
@@ -883,9 +877,9 @@ export default {
       //修改记录
       let data = {
         status: row.status,
-        contract_id: row.contract_id
+        contract_id: row.contract_id,
       };
-      selfApi.amendContract(data).then(res => {
+      selfApi.amendContract(data).then((res) => {
         if (res.data.code == 0) {
           console.log(res);
           this.recordList = res.data.data;
@@ -901,11 +895,11 @@ export default {
     },
     changeSelect(e) {
       let data = {
-        company_id: this.company_id
+        company_id: this.company_id,
       };
       if (e == "1") {
         //街道
-        selfApi.quList(data).then(res => {
+        selfApi.quList(data).then((res) => {
           if (res.data.code == 0) {
             this.selectList = res.data.data.data;
           }
@@ -913,7 +907,7 @@ export default {
       }
       if (e == "2") {
         //末端
-        selfApi.moduanList(data).then(res => {
+        selfApi.moduanList(data).then((res) => {
           if (res.data.code == 0) {
             if (res.data.data.data.length > 0) {
               this.selectList = res.data.data.data;
@@ -923,7 +917,7 @@ export default {
       }
     },
     changeSelect1(e) {
-      this.selectList.find(item => {
+      this.selectList.find((item) => {
         if (item.coding == e) {
           this.ruleForm.street_coding = item.coding;
           this.ruleForm.jia = item.name;
@@ -980,9 +974,9 @@ export default {
         start_enter_time: this.datetime[0],
         end_enter_time: this.datetime[1],
         ...this.searchData,
-        status: this.activeParams
+        status: this.activeParams,
       };
-      selfApi.contractList(params).then(res => {
+      selfApi.contractList(params).then((res) => {
         if (res.data.code == 200) {
           this.tableData = res.data.data.data.results;
           this.total = res.data.data.data.count;
@@ -992,14 +986,14 @@ export default {
     //所需资质
     zizhiData() {
       let data = {
-        company_id: this.company_id
+        company_id: this.company_id,
       };
-      selfApi.certification(data).then(res => {
+      selfApi.certification(data).then((res) => {
         if (res.data.code == 0) {
           this.zizhiListSelect = res.data.data.data;
         }
       });
-    }
+    },
   },
   mounted() {
     //获取公司id
@@ -1010,7 +1004,7 @@ export default {
     this.role_type = user.role_type;
     this.contractData();
     this.zizhiData();
-  }
+  },
 };
 </script>
 

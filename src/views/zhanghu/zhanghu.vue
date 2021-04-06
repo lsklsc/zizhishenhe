@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="">
     <!-- 检索 -->
     <el-form inline>
       <el-form-item label="登录账号：">

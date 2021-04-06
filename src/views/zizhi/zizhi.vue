@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="">
     <!-- tab -->
     <el-tabs v-model="activeParams" @tab-click="tabClick">
       <el-tab-pane label="草稿" name="0"></el-tab-pane>
@@ -566,9 +566,11 @@ export default {
             status: this.activeParams
           };
           let api = "certificationData";
+          let excellType = "certificationData";
           let data = {
             data: para,
             api,
+            excellType,
             total: this.total
           };
           this.$refs["export"].exportlist(data);

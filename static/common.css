@@ -125,10 +125,12 @@ input:-webkit-autofill {
 }
 
 .content {
-  padding: 20px;
   background: #fff;
-  height: calc(100vh - 152px);
-  /* overflow-y: auto; */
+  height: calc(100vh - 100px);
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 .recordTable{
   margin-top: 8px;
