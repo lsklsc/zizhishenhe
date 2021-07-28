@@ -1,4 +1,4 @@
-// export const baseUrl = 'https://api.ztbory.com/dev/qualification' //123 测试环境
+// export const baseUrl = 'https://api.ztbory.com/dev/qualification' //123456 测试环境
 export const baseUrl = 'https://api.ztbory.com/v3/qualification' // 正式环境
 
 // export const devUrl = 'https://api.ztbory.com/dev/qualification' //123 测试环境
