@@ -40,9 +40,9 @@ export default {
   data() {
     return {
       fromData: {
-        username: "RSjFk5Z",
-        password: "123456"
-      }
+        username: "", //tz13911111111
+        password: "",
+      },
     };
   },
   mounted() {
@@ -60,7 +60,7 @@ export default {
     login() {
       selfApi
         .login(this.fromData)
-        .then(res => {
+        .then((res) => {
           if (res.data.code == 1) {
             let token = res.data.data.data.token;
             localStorage.setItem("token", token);
@@ -70,14 +70,14 @@ export default {
             );
             let nav_id = res.data.data.data.nav_id;
             if (nav_id) {
-              selfApi.visvitPageList({}).then(res => {
+              selfApi.visvitPageList({}).then((res) => {
                 if (res.status == 200) {
                   let allRrr = res.data.data;
                   console.log(allRrr);
                   let menu = [];
                   let arr = nav_id.split(",");
-                  arr.forEach(o => {
-                    allRrr.forEach(item => {
+                  arr.forEach((o) => {
+                    allRrr.forEach((item) => {
                       if (item.nav_id == o) {
                         menu.push(item);
                       }
@@ -101,11 +101,11 @@ export default {
             this.$message.error(res.data.msg);
           }
         })
-        .catch(ref => {
+        .catch((ref) => {
           console.log(ref);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
