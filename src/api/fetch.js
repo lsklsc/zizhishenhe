@@ -10,9 +10,7 @@ Util.ajax.defaults.headers.common = {
   "X-Requested-With": "XMLHttpRequest"
 };
 var loading;
-Util.ajax.interceptors.request.use(
-  config => {
-    console.log(config)
+Util.ajax.interceptors.request.use(config => {
     if (config.params && config.params.un_loding) {
       //在这里做loading ...
     } else {
@@ -36,8 +34,7 @@ Util.ajax.interceptors.request.use(
   }
 );
 
-Util.ajax.interceptors.response.use(
-  response => {
+Util.ajax.interceptors.response.use(response => {
     //在这里做loading 关闭
     loading.close();
     return response;

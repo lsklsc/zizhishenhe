@@ -678,7 +678,6 @@ export default {
         });
     },
     tabClick(e) {
-      console.log(this.activeParams);
       if (e.name === "0") {
         this.isYi = true;
         this.isCause = false;

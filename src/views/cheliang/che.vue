@@ -70,6 +70,7 @@
         <el-upload
           accept=".xls, .xlsx"
           action="string"
+          :show-file-list="false"
           :http-request="httpRequest"
         >
           <el-button type="primary">导入</el-button>
@@ -443,7 +444,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="末端设施1：" prop="mo_plant1">
+            <el-form-item label="末端设施1：">
               <el-select
                 v-model="ruleForm.mo_plant1"
                 placeholder="请选择末端设施1"
@@ -981,6 +982,24 @@ export default {
           return time.getTime() > todayTime;
         },
       },
+      pickerOptions: {
+        disabledDate(time) {
+          return (
+            time.getTime() >
+            new Date(
+              new Date(new Date().toLocaleDateString()).getTime() +
+                24 * 60 * 60 * 1000 -
+                1
+            )
+          );
+        },
+      },
+      pickerOptions0: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 8.64e7; //禁用以前的日期，今天不禁用
+          // return date.getTime() <= Date.now();    //禁用今天以及以前的日期
+        },
+      },
       rules: {
         car_color: [
           { required: true, message: "请选择车辆颜色", trigger: "change" },
@@ -1046,9 +1065,9 @@ export default {
         run_year: [
           { required: true, message: "请选择填写运营年限", trigger: "blur" },
         ],
-        mo_plant1: [
-          { required: true, message: "请选择末端设施1", trigger: "change" },
-        ],
+        // mo_plant1: [
+        //   { required: true, message: "请选择末端设施1", trigger: "change" },
+        // ],
         is_runing: [
           {
             required: true,
@@ -1303,34 +1322,16 @@ export default {
       dialogTitle: "",
       dialogVisible1: false,
       cartDialogVisible: false,
-      pickerOptions: {
-        disabledDate(time) {
-          return (
-            time.getTime() >
-            new Date(
-              new Date(new Date().toLocaleDateString()).getTime() +
-                24 * 60 * 60 * 1000 -
-                1
-            )
-          );
-        },
-      },
-      pickerOptions0: {
-        disabledDate(time) {
-          return time.getTime() < Date.now() - 8.64e7; //禁用以前的日期，今天不禁用
-          // return date.getTime() <= Date.now();    //禁用今天以及以前的日期
-        },
-      },
       ruleForm: {},
       tableData: [],
       moduanList: [], //末端厂列表
+      date1: [],
+      dates: [],
       searchData: {
         car_num: "",
         service_area: "",
         car_type_id: "",
       },
-      date1: [],
-      dates: [],
       pageData: {
         page: 1,
         page_size: 10,
@@ -1352,9 +1353,11 @@ export default {
   methods: {
     //导入
     httpRequest(item) {
+      console.log(item);
       let formData = new FormData();
       formData.append("file", item.file);
       formData.append("company_id", this.company_id);
+      console.log(formData);
       selfApi.importCart(formData).then((res) => {
         if (res.data.code == 200) {
           this.$message.success(res.data.msg);
@@ -1746,7 +1749,6 @@ export default {
         company_id: JSON.parse(localStorage.getItem("userInfo")).company_id,
       };
       selfApi.moduanList(data).then((res) => {
-        console.log(res);
         if (res.data.code == 0) {
           this.moduanList = res.data.data.data;
         }

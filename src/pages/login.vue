@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       fromData: {
-        username: "",
-        password: ""
+        username: "RSjFk5Z",
+        password: "123456"
       }
     };
   },

@@ -86,7 +86,6 @@ export default {
 <style scoped>
 .frontMenu {
   height: 100%;
-  /* padding-top: 30px; */
   box-sizing: border-box;
   text-align: left;
 }
