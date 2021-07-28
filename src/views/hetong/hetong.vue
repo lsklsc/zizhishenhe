@@ -117,6 +117,7 @@
         <el-upload
           accept=".xls, .xlsx"
           action="string"
+          :show-file-list="false"
           :http-request="httpRequest"
         >
           <el-button type="primary">导入</el-button>
@@ -868,6 +869,7 @@ export default {
     },
     //查看
     lookClick(row) {
+      console.log(row);
       this.hetongList = [...(row.contract_picture || "").split(",")]; //合同照片
       this.zizhiList = [...(row.qualification_picture || "").split(",")]; //合同照片
       this.lookObj = row;

@@ -90,6 +90,7 @@
         <el-upload
           accept=".xls, .xlsx"
           action="string"
+          :show-file-list="false"
           :http-request="httpRequest"
         >
           <el-button type="primary">导入</el-button>
@@ -163,7 +164,7 @@
             type="text"
             v-if="
               isButton0 &&
-                (role_type == '1' || role_type == '2' || role_type == '3')
+              (role_type == '1' || role_type == '2' || role_type == '3')
             "
             @click="lookClick(scope.row)"
             >查看</el-button
@@ -183,7 +184,7 @@
           <el-button
             type="text"
             v-if="isButton3 && role_type == '1'"
-            style="color:red;"
+            style="color: red"
             @click="deleteClick(scope.row)"
             >删除</el-button
           >
@@ -224,7 +225,6 @@
         </el-form-item>
         <el-form-item label="证书备案日期：" prop="signed_time">
           <el-date-picker
-            :picker-options="pickerOptions0"
             v-model="ruleForm.signed_time"
             type="date"
             value-format="yyyy-MM-dd"
@@ -300,9 +300,7 @@
             :src="i"
             :preview-src-list="imgList"
           >
-            <div slot="error" style="line-height:100px">
-              暂无图片
-            </div>
+            <div slot="error" style="line-height: 100px">暂无图片</div>
           </el-image>
         </el-col>
       </el-row>
@@ -326,7 +324,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.old_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.old_content.split(',')"
@@ -346,7 +344,7 @@
             <template slot-scope="scope">
               <div
                 v-if="scope.row.new_content.indexOf('http') > -1"
-                style="display:flex"
+                style="display: flex"
               >
                 <div
                   v-for="(item, index) in scope.row.new_content.split(',')"
@@ -380,9 +378,7 @@
         :src="i"
         :preview-src-list="imgList"
       >
-        <div slot="error" style="line-height:100px">
-          暂无图片
-        </div>
+        <div slot="error" style="line-height: 100px">暂无图片</div>
       </el-image>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="imgDialogVisible = false"
@@ -411,7 +407,7 @@ import upload from "@/components/upload";
 import selfApi from "@/api/selfApi";
 export default {
   components: {
-    upload
+    upload,
   },
   data() {
     return {
@@ -431,28 +427,28 @@ export default {
             "59"
           ).getTime(); // 毫秒
           return time.getTime() > todayTime;
-        }
+        },
       },
       rules: {
         name: [{ required: true, message: "请输入合同名称", trigger: "blur" }],
         certificate_number: [
-          { required: true, message: "请输入证书编号", trigger: "blur" }
+          { required: true, message: "请输入证书编号", trigger: "blur" },
         ],
         licensed_content: [
-          { required: true, message: "请填写许可内容", trigger: "blur" }
+          { required: true, message: "请填写许可内容", trigger: "blur" },
         ],
         licence_place: [
-          { required: true, message: "请填写发证机关", trigger: "blur" }
+          { required: true, message: "请填写发证机关", trigger: "blur" },
         ],
         signed_time: [
-          { required: true, message: "请选择证书备案日期", trigger: "blur" }
+          { required: true, message: "请选择证书备案日期", trigger: "blur" },
         ],
         viald_time: [
-          { required: true, message: "请选择证书有效期", trigger: "blur" }
+          { required: true, message: "请选择证书有效期", trigger: "blur" },
         ],
         service_area: [
-          { required: true, message: "请选择服务区域", trigger: "blur" }
-        ]
+          { required: true, message: "请选择服务区域", trigger: "blur" },
+        ],
       },
       selectList: [],
       dialogVisible: false,
@@ -469,44 +465,44 @@ export default {
                 1
             )
           );
-        }
+        },
       },
       pickerOptions0: {
         disabledDate(time) {
           return time.getTime() < Date.now() - 8.64e7; //禁用以前的日期，今天不禁用
           // return date.getTime() <= Date.now();    //禁用今天以及以前的日期
-        }
+        },
       },
       ruleForm: {},
       tableData: [],
       options: [
         {
           value: "0",
-          label: "未审核"
+          label: "未审核",
         },
         {
           value: "1",
-          label: "审核通过"
+          label: "审核通过",
         },
         {
           value: "2",
-          label: "审核失败"
+          label: "审核失败",
         },
         {
           value: "3",
-          label: "已注销"
-        }
+          label: "已注销",
+        },
       ],
       status: "",
       searchData: {
-        contractVal: ""
+        contractVal: "",
       },
       date1: [],
       date2: [],
       date3: [],
       pageData: {
         page: 1,
-        page_size: 10
+        page_size: 10,
       },
       total: 0,
       activeParams: "0",
@@ -524,7 +520,7 @@ export default {
       recordList: [], //修改记录
       oldruleForm: {},
       imgList: [],
-      serviceList: []
+      serviceList: [],
     };
   },
   methods: {
@@ -533,7 +529,7 @@ export default {
       let formData = new FormData();
       formData.append("file", item.file);
       formData.append("company_id", this.company_id);
-      selfApi.importQualification(formData).then(res => {
+      selfApi.importQualification(formData).then((res) => {
         if (res.data.code == 200) {
           this.$message.success(res.data.msg);
           this.certificationList();
@@ -549,7 +545,7 @@ export default {
       this.$confirm("本次共导出" + this.total + "条数据是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let para = {
@@ -563,7 +559,7 @@ export default {
             end_enter_time: this.date3[1],
             start_submit_time: this.date2[0],
             end_submit_time: this.date2[1],
-            status: this.activeParams
+            status: this.activeParams,
           };
           let api = "certificationData";
           let excellType = "certificationData";
@@ -571,14 +567,14 @@ export default {
             data: para,
             api,
             excellType,
-            total: this.total
+            total: this.total,
           };
           this.$refs["export"].exportlist(data);
         })
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消导出"
+            message: "已取消导出",
           });
         });
     },
@@ -653,15 +649,15 @@ export default {
       this.$confirm("确认提交, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
           let data = {
             status: 1,
             qualificate_id: row.qualificate_id,
-            company_id: this.company_id
+            company_id: this.company_id,
           };
-          selfApi.submitCertification(row.id, data).then(res => {
+          selfApi.submitCertification(row.id, data).then((res) => {
             if (res.data.code == 0) {
               this.$message.success("提交成功!");
               this.certificationList();
@@ -676,7 +672,7 @@ export default {
     },
     //新增 编辑
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!this.ruleForm.qualification_picture) {
           this.$message.warning("请上传资质照片");
           return;
@@ -686,7 +682,7 @@ export default {
             console.log(this.ruleForm, 11);
             let objData = {
               status: this.ruleForm.status,
-              qualificate_id: this.ruleForm.qualificate_id
+              qualificate_id: this.ruleForm.qualificate_id,
             };
             for (let item in this.ruleForm) {
               for (let obj in this.oldruleForm) {
@@ -700,21 +696,23 @@ export default {
               }
             }
             objData.viald_time = JSON.stringify(objData.viald_time);
-            selfApi.updataCertification(this.ruleForm.id, objData).then(res => {
-              if (res.data.code == 0) {
-                this.$message.success("编辑成功!");
-                this.certificationList();
-                this.dialogVisible1 = false;
-              } else {
-                this.$message.error(res.data.msg);
-              }
-            });
+            selfApi
+              .updataCertification(this.ruleForm.id, objData)
+              .then((res) => {
+                if (res.data.code == 0) {
+                  this.$message.success("编辑成功!");
+                  this.certificationList();
+                  this.dialogVisible1 = false;
+                } else {
+                  this.$message.error(res.data.msg);
+                }
+              });
           } else {
             let para = {
-              ...this.ruleForm
+              ...this.ruleForm,
             };
             para.viald_time = JSON.stringify(para.viald_time);
-            selfApi.addCertification(para).then(res => {
+            selfApi.addCertification(para).then((res) => {
               if (res.data.code == 0) {
                 this.$message.success("新增成功!");
                 this.certificationList();
@@ -752,15 +750,15 @@ export default {
       console.log(row);
       let data = {
         status: row.status,
-        qualificate_id: row.qualificate_id
+        qualificate_id: row.qualificate_id,
       };
       this.$confirm("此操作将永久删除, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       })
         .then(() => {
-          selfApi.delCertification(row.id, data).then(res => {
+          selfApi.delCertification(row.id, data).then((res) => {
             this.$message.success("删除成功!");
             this.certificationList();
           });
@@ -777,9 +775,9 @@ export default {
       //修改记录
       let data = {
         status: row.status,
-        qualificate_id: row.qualificate_id
+        qualificate_id: row.qualificate_id,
       };
-      selfApi.recordCertification(data).then(res => {
+      selfApi.recordCertification(data).then((res) => {
         console.log(res);
         if (res.data.code == 0) {
           this.recordList = res.data.data;
@@ -832,9 +830,9 @@ export default {
         end_enter_time: this.date3[1],
         start_submit_time: this.date2[0],
         end_submit_time: this.date2[1],
-        status: this.activeParams
+        status: this.activeParams,
       };
-      selfApi.certificationData(params).then(res => {
+      selfApi.certificationData(params).then((res) => {
         if (res.data.code == 200) {
           this.tableData = res.data.data.data.results;
           this.total = res.data.data.data.count;
@@ -844,14 +842,14 @@ export default {
     //获取服务区域
     serviceData() {
       let data = {
-        company_id: this.company_id
+        company_id: this.company_id,
       };
-      selfApi.quCheZizhiData(data).then(res => {
+      selfApi.quCheZizhiData(data).then((res) => {
         if (res.data.code == 0) {
           this.serviceList = res.data.data.data;
         }
       });
-    }
+    },
   },
   mounted() {
     //获取公司id
@@ -862,7 +860,7 @@ export default {
     this.role_type = user.role_type;
     this.certificationList();
     this.serviceData();
-  }
+  },
 };
 </script>
 

@@ -10,13 +10,13 @@
         <el-form-item>
           <div class="title">收运单位账号申请</div>
         </el-form-item>
-        <div style="display:flex">
+        <div style="display: flex">
           <el-form-item prop="name">
-            <span style="color:red;">*</span>公司名称：
+            <span style="color: red">*</span>公司名称：
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
           <el-form-item prop="admin">
-            <span style="color:red;">*</span>负责人/法人姓名：
+            <span style="color: red">*</span>负责人/法人姓名：
             <el-input v-model="ruleForm.admin"></el-input>
           </el-form-item>
         </div>
@@ -30,23 +30,23 @@
             <el-input maxlength="11" v-model="ruleForm.phone"></el-input>
           </el-form-item>
         </div> -->
-        <div style="display:flex">
+        <div style="display: flex">
           <el-form-item prop="address">
-            <span style="color:red;">*</span>地址：
+            <span style="color: red">*</span>地址：
             <el-input v-model="ruleForm.address"></el-input>
           </el-form-item>
           <el-form-item prop="credit_code">
-            <span style="color:red;">*</span>社会统一信用代码：
+            <span style="color: red">*</span>社会统一信用代码：
             <el-input v-model="ruleForm.credit_code"></el-input>
           </el-form-item>
         </div>
-        <div style="display:flex">
+        <div style="display: flex">
           <el-form-item prop="email">
-            <div><span style="color:red;">*</span>邮箱：</div>
+            <div><span style="color: red">*</span>邮箱：</div>
             <el-input v-model="ruleForm.email"></el-input>
           </el-form-item>
-          <el-form-item prop="service_area" style="width:100%">
-            <div><span style="color:red;">*</span>服务区域：</div>
+          <el-form-item prop="service_area" style="width: 100%">
+            <div><span style="color: red">*</span>服务区域：</div>
             <el-select
               v-model="ruleForm.service_area"
               placeholder="请选择服务区域"
@@ -62,13 +62,13 @@
             </el-select>
           </el-form-item>
         </div>
-        <div style="display:flex">
+        <div style="display: flex">
           <el-form-item prop="phone">
-            <span style="color:red;">*</span>负责人联系电话：
+            <span style="color: red">*</span>负责人联系电话：
             <el-input maxlength="11" v-model="ruleForm.phone"></el-input>
           </el-form-item>
-          <el-form-item prop="street_coding" style="width:100%">
-            <div><span style="color:red;">*</span>街道：</div>
+          <el-form-item prop="street_coding" style="width: 100%">
+            <div><span style="color: red">*</span>街道：</div>
             <el-select
               multiple
               collapse-tag
@@ -86,7 +86,7 @@
           </el-form-item>
         </div>
         <el-form-item prop="quali_file">
-          <span style="color:red;">*</span>资质附件：
+          <span style="color: red">*</span>资质附件：
           <upload
             :imageUrl="ruleForm.quali_file"
             ref="upload"
@@ -102,7 +102,7 @@
           ></upload>
         </el-form-item> -->
         <el-form-item label="" prop="company_picture">
-          <span style="color:red;">*</span>营业执照：
+          <span style="color: red">*</span>营业执照：
           <upload
             :imageUrl="ruleForm.company_picture"
             ref="upload"
@@ -133,11 +133,11 @@ export default {
       streetList: [],
       rules: {
         name: [
-          { required: true, message: "请输入公司名称", trigger: "blur" }
+          { required: true, message: "请输入公司名称", trigger: "blur" },
           // { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         admin: [
-          { required: true, message: "请输入负责人/法人", trigger: "blur" }
+          { required: true, message: "请输入负责人/法人", trigger: "blur" },
         ],
         // id_card: [
         //   {
@@ -148,7 +148,7 @@ export default {
         //   }
         // ],
         phone: [
-          { required: true, message: "请输入手机号", trigger: "change" }
+          { required: true, message: "请输入手机号", trigger: "change" },
           // { min: 11, max: 11, message: "长度在 3 到 5 个字符", trigger: "blur" }
         ],
         address: [{ required: true, message: "请输入地址", trigger: "change" }],
@@ -156,29 +156,29 @@ export default {
           {
             required: true,
             message: "请输入社会统一信用代码",
-            trigger: "change"
-          }
+            trigger: "change",
+          },
         ],
         service_area: [
-          { required: true, message: "请选择服务区域", trigger: "change" }
+          { required: true, message: "请选择服务区域", trigger: "change" },
         ],
         street_coding: [
-          { required: true, message: "请选择街道", trigger: "change" }
+          { required: true, message: "请选择街道", trigger: "change" },
         ],
         email: [
           {
             required: true,
             pattern: /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/,
             message: "邮箱格式错误",
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (!this.ruleForm.quali_file) {
           this.$message.warning("请上传资质附件");
           return;
@@ -193,12 +193,12 @@ export default {
         }
         if (valid) {
           let data = {
-            ...this.ruleForm
+            ...this.ruleForm,
           };
           let nameArr = [];
           let codingArr = [];
-          this.ruleForm.street_coding.forEach(element => {
-            let obj = this.streetList.find(item => {
+          this.ruleForm.street_coding.forEach((element) => {
+            let obj = this.streetList.find((item) => {
               return item.coding === element;
             });
             nameArr.push(obj.name);
@@ -206,21 +206,21 @@ export default {
           });
           data.street_name = nameArr.join(",");
           data.street_coding = codingArr.join(",");
-          selfApi.addCompany(data).then(res => {
+          selfApi.addCompany(data).then((res) => {
             if (res.data.code == 0) {
               this.$notify({
                 title: "提交成功!",
                 type: "success",
-                offset: 100
+                offset: 100,
               });
-              // setTimeout(() => {
-              //   window.location.reload();
-              // }, 1500);
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
             } else {
               this.$notify({
                 title: res.data.msg,
                 type: "error",
-                offset: 100
+                offset: 100,
               });
             }
           });
@@ -247,9 +247,9 @@ export default {
       this.ruleForm.street_name = "";
       this.ruleForm.street_coding = "";
       let data = {
-        area_coding: e
+        area_coding: e,
       };
-      selfApi.street_list(data).then(res => {
+      selfApi.street_list(data).then((res) => {
         if (res.data.code == 0) {
           this.streetList = res.data.data.data;
         }
@@ -257,12 +257,12 @@ export default {
     },
     //获取服务区列表
     serviceData() {
-      selfApi.serviceData().then(res => {
+      selfApi.serviceData().then((res) => {
         if (res.data.code == 0) {
           this.serviceList = res.data.data.data;
         }
       });
-    }
+    },
   },
   mounted() {
     this.serviceData();
@@ -271,7 +271,7 @@ export default {
     //解决select属性multiple页面初始化多选触发的校验 this.ruleForm为页面属性接收值 service_area为下拉框v-model对应的值
     this.$set(this.ruleForm, "street_coding", []);
     window.localStorage.clear();
-  }
+  },
 };
 </script>
 

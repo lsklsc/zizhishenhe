@@ -66,30 +66,15 @@ export default {
   },
   data() {
     return {
-      /////导出
+      //导出
       file_name: "",
       bookType: "xlsx",
       sheet: [
         {
-          // title: "",
           tHeader: [],
           table: [],
           keys: [],
           sheetName: "插件信息",
-          // cellStyle: [
-          //   {
-          //     cell: "A1",
-          //     font: {
-          //       name: "宋体",
-          //       sz: 14,
-          //       color: { rgb: "#fff" },
-          //       bold: true,
-          //     },
-          //     fill: {
-          //       fgColor: { rgb: "ffffff" },
-          //     },
-          //   },
-          // ],
         },
       ],
       dialogVisibleExport: false,
@@ -111,7 +96,6 @@ export default {
       this.parent_data = data;
       this.export_list = [];
       this.dialogVisibleExport = true;
-      // this.parent_data.total = 234;
       this.exportloading();
     },
     exportloading() {
@@ -132,10 +116,6 @@ export default {
       para.un_loding = true;
       selfApi[this.parent_data.api](para).then((res) => {
         if (res.data.code == 200) {
-          // if (res.data.data.results && res.data.data.results.length) {
-          //   this.export_list = [...this.export_list, ...res.data.data.results];
-          //   this.parent_data.data.page++;
-          // }
           if (res.data.data.data.results && res.data.data.data.results.length) {
             this.export_list = [
               ...this.export_list,
@@ -160,16 +140,10 @@ export default {
       })
         .then(() => {
           this.exportFn();
-          this.$message({
-            type: "success",
-            message: "导出成功!",
-          });
+          this.$message.success("导出成功!");
         })
         .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消导出",
-          });
+          this.$message.info("已取消导出!");
         });
     },
     exportFn(data) {
